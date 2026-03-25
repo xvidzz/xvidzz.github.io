@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gallery</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>My Gallery</h1>
+</header>
+
+<!-- 🔥 Adsterra Banner -->
+<div class="ad">
+  <script>
+    atOptions = {
+      'key' : '832df44307f960b524b3eca813248a1a',
+      'format' : 'iframe',
+      'height' : 60,
+      'width' : 468,
+      'params' : {}
+    };
+  </script>
+  <script src="//www.highperformanceformat.com/832df44307f960b524b3eca813248a1a/invoke.js"></script>
+</div>
+
+<main class="gallery">
+
+  <a href="https://your-link-1.com" target="_blank" class="card" onclick="triggerPop()">
+    <img src="images/img1.jpg">
+  </a>
+
+  <a href="https://your-link-2.com" target="_blank" class="card" onclick="triggerPop()">
+    <img src="images/img2.jpg">
+  </a>
+
+</main>
+
+<!-- 🔥 Load More button -->
+<div class="load-more">
+  <button onclick="loadMore()">Load More</button>
+</div>
+
+<!-- 🔥 Popunder script (hidden, triggered manually) -->
+<script id="popScript" src="https://pl28979803.profitablecpmratenetwork.com/84/4b/53/844b53f17ac3683627414d48320772cd.js" defer></script>
+
+<script>
+let popTriggered = false;
+
+function triggerPop() {
+  if (!popTriggered) {
+    popTriggered = true;
+
+    // reload script to force trigger
+    let s = document.createElement('script');
+    s.src = "https://pl28979803.profitablecpmratenetwork.com/84/4b/53/844b53f17ac3683627414d48320772cd.js";
+    document.body.appendChild(s);
+  }
+}
+
+function loadMore() {
+  triggerPop();
+
+  // fake load more (you can replace this later)
+  const gallery = document.querySelector(".gallery");
+
+  for (let i = 0; i < 4; i++) {
+    let a = document.createElement("a");
+    a.href = "#";
+    a.className = "card";
+    a.onclick = triggerPop;
+
+    let img = document.createElement("img");
+    img.src = "https://via.placeholder.com/300";
+
+    a.appendChild(img);
+    gallery.appendChild(a);
+  }
+}
+</script>
+
+</body>
+</html>
