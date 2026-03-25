@@ -30,6 +30,7 @@ body {
   position: fixed;
   width: 100%;
   z-index: 1000;
+  top: 0;
 }
 
 .left {
@@ -50,13 +51,31 @@ body {
   border-radius: 4px;
 }
 
+/* ===== SEARCH ===== */
+.search {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
 .search input {
-  width: 300px;
+  width: 100%;
+  max-width: 400px;
   padding: 10px;
   border-radius: 25px;
   border: none;
   background: #1c1c1c;
   color: white;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* ===== BANNER ===== */
+.banner {
+  width: 100%;
+  text-align: center;
+  margin-top: 60px; /* pod header */
+  padding: 5px 0;
 }
 
 /* ===== GALLERY ===== */
@@ -64,7 +83,8 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 12px;
-  padding: 80px 15px 15px 15px; /* vrchný padding kvôli hlavičke */
+  padding: 10px 15px 15px 15px;
+  margin-top: 10px;
   min-height: 300px;
 }
 
@@ -99,10 +119,10 @@ body {
 /* ===== FULLSCREEN MODAL ===== */
 .fullscreen {
   position: fixed;
-  top: 50px; /* nech je header stále vidno */
+  top: 60px; /* pod header */
   left: 0;
   width: 100%;
-  height: calc(100% - 50px);
+  height: calc(100% - 60px);
   background: rgba(0,0,0,0.95);
   display: none;
   justify-content: center;
@@ -127,13 +147,6 @@ body {
   font-weight: bold;
   z-index: 1001;
 }
-
-/* ===== BANNER ===== */
-.banner {
-  width: 100%;
-  text-align: center;
-  margin-top: 60px;
-}
 </style>
 </head>
 
@@ -150,7 +163,7 @@ body {
   </div>
 </div>
 
-<!-- BANNER AD -->
+<!-- BANNER AD pod header -->
 <div class="banner">
   <script>
     atOptions = {
@@ -226,7 +239,6 @@ searchInput.addEventListener("input", function() {
 function openFullscreen(data) {
   fsImg.src = data.img;
   fullscreen.style.display = "flex";
-  // Otvor reklamu pri kliknutí
   window.open(data.link, "_blank");
 }
 
