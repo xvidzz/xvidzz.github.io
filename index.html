@@ -9,342 +9,82 @@
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'Inter', sans-serif;
-  background: #0b0b0b;
-  color: white;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* ── HEADER ── */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #111;
-  padding: 10px 20px;
-  position: fixed;
-  width: 100%;
-  z-index: 1000;
-  top: 0;
-}
-.left { display: flex; align-items: center; gap: 15px; }
+body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-height: 100vh; overflow-x: hidden; }
+.header { display: flex; align-items: center; justify-content: space-between; background: #111; padding: 10px 20px; position: fixed; width: 100%; z-index: 1000; top: 0; }
 .logo { font-size: 26px; font-weight: 800; }
 .logo span { background: orange; color: black; padding: 2px 6px; border-radius: 4px; }
 .search { flex: 1; display: flex; justify-content: center; }
-.search input {
-  width: 100%;
-  max-width: 400px;
-  padding: 10px;
-  border-radius: 25px;
-  border: none;
-  background: #1c1c1c;
-  color: white;
-  outline: none;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-}
-
-/* ── BANNER ── */
+.search input { width: 100%; max-width: 400px; padding: 10px; border-radius: 25px; border: none; background: #1c1c1c; color: white; outline: none; font-family: 'Inter', sans-serif; font-size: 14px; }
 .banner { width: 100%; text-align: center; padding: 5px 0; overflow: hidden; }
 .banner-top { margin-top: 60px; }
-
-/* ── TABS ── */
-.tabs {
-  display: flex;
-  gap: 0;
-  background: #111;
-  border-bottom: 2px solid #1e1e1e;
-  position: sticky;
-  top: 60px;
-  z-index: 100;
-}
-.tab-btn {
-  flex: 1;
-  padding: 12px 8px;
-  text-align: center;
-  font-size: 13px;
-  font-weight: 700;
-  color: #666;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  transition: all 0.15s;
-  user-select: none;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+.tabs { display: flex; background: #111; border-bottom: 2px solid #1e1e1e; position: sticky; top: 60px; z-index: 100; }
+.tab-btn { flex: 1; padding: 12px 8px; text-align: center; font-size: 13px; font-weight: 700; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.15s; user-select: none; text-transform: uppercase; letter-spacing: 0.5px; }
 .tab-btn:hover { color: #fff; }
 .tab-btn.active { color: orange; border-bottom-color: orange; }
-
-/* ── CATEGORY PILLS ── */
-.categories {
-  display: flex;
-  gap: 8px;
-  padding: 10px 14px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
+.categories { display: flex; gap: 8px; padding: 10px 14px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
 .categories::-webkit-scrollbar { display: none; }
-.pill {
-  flex-shrink: 0;
-  padding: 6px 16px;
-  border-radius: 999px;
-  border: 1px solid #2a2a2a;
-  background: #111;
-  color: #888;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s;
-  user-select: none;
-}
+.pill { flex-shrink: 0; padding: 6px 16px; border-radius: 999px; border: 1px solid #2a2a2a; background: #111; color: #888; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; user-select: none; }
 .pill:hover, .pill.active { background: orange; color: #000; border-color: orange; }
-
-/* ── GALLERY ── */
-.gallery-label {
-  padding: 4px 14px 6px;
-  font-size: 12px;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  padding: 0 10px 10px;
-}
-@media (min-width: 480px) { .gallery { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 768px) { .gallery { grid-template-columns: repeat(4, 1fr); } }
+.gallery-label { padding: 4px 14px 6px; font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+.gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 0 10px 10px; }
+@media (min-width: 480px)  { .gallery { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 768px)  { .gallery { grid-template-columns: repeat(4, 1fr); } }
 @media (min-width: 1024px) { .gallery { grid-template-columns: repeat(5, 1fr); } }
-
-.card {
-  background: #111;
-  border-radius: 10px;
-  overflow: hidden;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
+.card { background: #111; border-radius: 10px; overflow: hidden; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .card:active { opacity: 0.8; }
 .card-img-wrap { position: relative; padding-top: 130%; overflow: hidden; }
-.card img {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.card-title {
-  font-size: 13px;
-  padding: 5px 8px 7px;
-  color: #ccc;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* ── MODEL CARDS ── */
-.models-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  padding: 10px;
-}
+.card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.card-title { font-size: 13px; padding: 5px 8px 7px; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.models-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
 @media (min-width: 480px) { .models-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 768px) { .models-grid { grid-template-columns: repeat(4, 1fr); } }
-
-.model-card {
-  background: #111;
-  border-radius: 12px;
-  overflow: hidden;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  border: 2px solid transparent;
-  transition: border-color 0.15s;
-}
+.model-card { background: #111; border-radius: 12px; overflow: hidden; cursor: pointer; -webkit-tap-highlight-color: transparent; border: 2px solid transparent; transition: border-color 0.15s; }
 .model-card:hover { border-color: orange; }
-.model-card:active { opacity: 0.8; }
 .model-card-img-wrap { position: relative; padding-top: 120%; overflow: hidden; }
-.model-card img {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.model-card-name {
-  font-size: 14px;
-  font-weight: 700;
-  padding: 8px 10px 5px;
-  color: #fff;
-}
-.model-card-count {
-  font-size: 11px;
-  padding: 0 10px 8px;
-  color: #888;
-}
-
-/* ── BACK BUTTON ── */
-.back-bar {
-  display: none;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  background: #111;
-  border-bottom: 1px solid #1e1e1e;
-  cursor: pointer;
-}
+.model-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.model-card-name { font-size: 14px; font-weight: 700; padding: 8px 10px 5px; color: #fff; }
+.model-card-count { font-size: 11px; padding: 0 10px 8px; color: #888; }
+.back-bar { display: none; align-items: center; gap: 10px; padding: 10px 14px; background: #111; border-bottom: 1px solid #1e1e1e; cursor: pointer; }
 .back-bar.visible { display: flex; }
 .back-bar svg { width: 18px; height: 18px; fill: orange; flex-shrink: 0; }
 .back-bar span { font-size: 14px; font-weight: 600; color: orange; }
-
-/* ── SENTINEL ── */
 .sentinel { height: 40px; }
-.nothing {
-  color: #aaa;
-  font-size: 16px;
-  text-align: center;
-  grid-column: 1 / -1;
-  padding: 60px 0;
-}
-
-/* ── FULLSCREEN ── */
-.fullscreen {
-  position: fixed;
-  top: 60px;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 60px);
-  background: #000;
-  display: none;
-  flex-direction: column;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  z-index: 999;
-}
+.nothing { color: #aaa; font-size: 16px; text-align: center; grid-column: 1 / -1; padding: 60px 0; }
+.fullscreen { position: fixed; top: 60px; left: 0; width: 100%; height: calc(100% - 60px); background: #000; display: none; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch; z-index: 999; }
 .fullscreen.open { display: flex; }
-
-.fs-img-area {
-  width: 100%;
-  height: calc(100vh - 60px);
-  flex-shrink: 0;
-  position: relative;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.fs-img-area img {
-  width: 100%; height: 100%;
-  object-fit: contain;
-  display: block;
-  user-select: none;
-}
-.fs-close {
-  position: absolute;
-  top: 12px; right: 14px;
-  width: 36px; height: 36px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px; font-weight: bold;
-  cursor: pointer; color: white;
-  background: rgba(0,0,0,0.65);
-  border-radius: 50%; z-index: 10;
-}
-.fs-title-bar {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.8));
-  padding: 30px 14px 14px;
-  font-size: 15px; font-weight: 600;
-  pointer-events: none;
-}
-.fs-scroll-hint {
-  position: absolute;
-  bottom: 18px; left: 50%;
-  transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  color: rgba(255,255,255,0.5); font-size: 11px;
-  pointer-events: none;
-  animation: bounce 1.6s infinite;
-}
+.fs-img-area { width: 100%; height: calc(100vh - 60px); flex-shrink: 0; position: relative; background: #000; display: flex; align-items: center; justify-content: center; }
+.fs-img-area img { width: 100%; height: 100%; object-fit: contain; display: block; user-select: none; }
+.fs-close { position: absolute; top: 12px; right: 14px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; cursor: pointer; color: white; background: rgba(0,0,0,0.65); border-radius: 50%; z-index: 10; }
+.fs-title-bar { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 30px 14px 14px; font-size: 15px; font-weight: 600; pointer-events: none; }
+.fs-scroll-hint { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 3px; color: rgba(255,255,255,0.5); font-size: 11px; pointer-events: none; animation: bounce 1.6s infinite; }
 .fs-scroll-hint svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.5); }
-@keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(5px); }
-}
-
-/* ── RELATED ── */
-.related-section {
-  background: #111;
-  padding: 14px 12px 30px;
-  border-top: 1px solid #1e1e1e;
-  flex-shrink: 0;
-}
-.related-label {
-  font-size: 11px; text-transform: uppercase;
-  letter-spacing: 1px; color: #888; margin-bottom: 10px;
-}
-.related-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-}
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(5px); } }
+.related-section { background: #111; padding: 14px 12px 30px; border-top: 1px solid #1e1e1e; flex-shrink: 0; }
+.related-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 10px; }
+.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 @media (min-width: 480px) { .related-grid { grid-template-columns: repeat(4, 1fr); } }
-
-.related-card {
-  cursor: pointer; border-radius: 8px;
-  overflow: hidden; background: #1c1c1c;
-  -webkit-tap-highlight-color: transparent;
-}
-.related-card:active { opacity: 0.8; }
+.related-card { cursor: pointer; border-radius: 8px; overflow: hidden; background: #1c1c1c; }
 .related-card-img-wrap { position: relative; padding-top: 130%; }
-.related-card img {
-  position: absolute; top: 0; left: 0;
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
-}
-.related-card-title {
-  font-size: 11px; color: #aaa;
-  padding: 4px 5px 5px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-
-/* ── IG OVERLAY ── */
-.ig-overlay {
-  position: fixed; inset: 0; background: #0b0b0b;
-  z-index: 99999; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 32px; text-align: center;
-}
+.related-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.related-card-title { font-size: 11px; color: #aaa; padding: 4px 5px 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ig-overlay { position: fixed; inset: 0; background: #0b0b0b; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px; text-align: center; }
 .ig-icon { font-size: 56px; margin-bottom: 20px; }
 .ig-overlay h2 { font-size: 24px; font-weight: 800; margin-bottom: 12px; }
 .ig-overlay p { color: #888; font-size: 15px; line-height: 1.7; max-width: 300px; }
 .ig-overlay strong { color: white; }
-.ig-step {
-  display: inline-block; background: orange; color: #000;
-  font-weight: 700; padding: 2px 10px; border-radius: 6px; margin-top: 4px;
-}
+.ig-step { display: inline-block; background: orange; color: #000; font-weight: 700; padding: 2px 10px; border-radius: 6px; margin-top: 4px; }
 </style>
 </head>
 <body>
 
-<!-- IG OVERLAY -->
 <div class="ig-overlay" id="igOverlay" style="display:none;">
   <div class="ig-icon">🌐</div>
   <h2>Open in Browser</h2>
-  <p>
-    Instagram's built-in browser blocks this site.<br><br>
-    Tap the <strong>⋯ menu</strong> (top right corner)<br>
-    then select <span class="ig-step">Open in external browser</span>
-  </p>
+  <p>Instagram's built-in browser blocks this site.<br><br>Tap the <strong>⋯ menu</strong> (top right corner)<br>then select <span class="ig-step">Open in external browser</span></p>
 </div>
 
-<!-- HEADER -->
 <div class="header">
-  <div class="left">
+  <div style="display:flex;align-items:center;gap:15px;">
     <div class="logo">X<span>vidzz</span></div>
   </div>
   <div class="search">
@@ -352,45 +92,31 @@ body {
   </div>
 </div>
 
-<!-- TOP BANNER -->
 <div class="banner banner-top">
-  <script>
-    atOptions = { 'key' : '983b9cd2f75f07d4c0212fa312f1c19e', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
-  </script>
+  <script>atOptions = { 'key' : '983b9cd2f75f07d4c0212fa312f1c19e', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };</script>
   <script src="https://www.highperformanceformat.com/983b9cd2f75f07d4c0212fa312f1c19e/invoke.js"></script>
 </div>
 
-<!-- TABS -->
 <div class="tabs">
   <div class="tab-btn active" id="tabCategories" onclick="switchTab('categories')">📁 Categories</div>
   <div class="tab-btn" id="tabModels" onclick="switchTab('models')">👤 Models</div>
 </div>
 
-<!-- BACK BAR (shown when browsing a model or category drill-down) -->
 <div class="back-bar" id="backBar" onclick="goBack()">
   <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
   <span id="backLabel">Back</span>
 </div>
 
-<!-- CATEGORY PILLS (visible in categories tab) -->
 <div class="categories" id="categoryPills"></div>
-
-<!-- GALLERY LABEL -->
 <div class="gallery-label" id="galleryLabel"></div>
-
-<!-- PHOTO GALLERY (categories tab content) -->
 <div class="gallery" id="gallery"></div>
 <div class="sentinel" id="sentinel"></div>
-
-<!-- MODELS GRID (models tab content) -->
 <div class="models-grid" id="modelsGrid" style="display:none;"></div>
 
-<!-- BOTTOM BANNER -->
 <div class="banner">
   <script src="https://pl28980273.profitablecpmratenetwork.com/18/b3/02/18b302cf47484bb230e4bff70f2b3c0c.js"></script>
 </div>
 
-<!-- FULLSCREEN VIEWER -->
 <div class="fullscreen" id="fullscreen">
   <div class="fs-img-area">
     <div class="fs-close" onclick="closeFullscreen()">×</div>
@@ -408,133 +134,94 @@ body {
 </div>
 
 <script>
+// ── IG DETECTION ──
+(function() {
+  const ua = navigator.userAgent || '';
+  if (ua.includes('Instagram') || ua.includes('FBAN') || ua.includes('FBAV'))
+    document.getElementById('igOverlay').style.display = 'flex';
+})();
+
 // ══════════════════════════════════════════════════════
-//  IMAGE DATA
-//
-//  Štruktúra priečinkov:
-//    pictures/nature/img1.jpg
-//    pictures/city/img1.jpg
-//    pictures/cosplay/img1.jpg
-//    pictures/bikiny/img1.jpg
-//    pictures/models/lela_sohna/img1.jpg   ← modelky
-//    pictures/models/anna_nova/img1.jpg
-//
-//  Každý obrázok má:
-//    img    - cesta k súboru
-//    title  - popis / názov
-//    category - "nature" | "city" | "cosplay" | "bikiny"  (pre kategórie tab)
-//    model  - slug modelky, napr. "lela_sohna" (voliteľné, pre models tab)
-//    link   - affiliate / popunder odkaz
+//  OBRAZKY — pridaj sem svoje, title je volitelne
+//  Format nazvu suboru: img(1).png, img(2).png ...
+//  Priklad:
+//    { img: "pictures/tits/img(1).png", category: "tits", model: "lela_sohna", link: "..." },
 // ══════════════════════════════════════════════════════
 const images = [
 
-  // ── NATURE ──
-  { img: "pictures/tits/img(1).png",    category: "tits",  model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img(2).png",    category: "tits",  model: "anna_nova",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img(3).png",    category: "tits",  model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+  // ── TITS ──
+  { img: "pictures/tits/img(1).png",  category: "tits",   model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+  { img: "pictures/tits/img(2).png",  category: "tits",   model: "anna_nova",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+  { img: "pictures/tits/img(3).png",  category: "tits",   model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
 
-  // ── CITY ──
-  { img: "pictures/ass/img (1).png",         category: "ass",    model: "anna_nova",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/ass/img (2).png",       category: "ass",    model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+  // ── ASS ──
+  { img: "pictures/ass/img(1).png",   category: "ass",    model: "anna_nova",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+  { img: "pictures/ass/img(2).png",   category: "ass",    model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
 
   // ── COSPLAY ──
-  { img: "pictures/cosplay/img (1).png",     category: "cosplay", model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/cosplay/img (2).png",     category: "cosplay", model: "anna_nova",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+  { img: "pictures/cosplay/img(1).png", category: "cosplay", model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+  { img: "pictures/cosplay/img(2).png", category: "cosplay", model: "anna_nova",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
 
   // ── BIKINY ──
-  { img: "pictures/bikiny/img (1).png",        category: "bikiny",  model: "anna_nova",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/bikiny/img (2).png",       category: "bikiny",  model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+  { img: "pictures/bikiny/img(1).png",  category: "bikiny",  model: "anna_nova",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+  { img: "pictures/bikiny/img(2).png",  category: "bikiny",  model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
 
-  // ── Pridaj ďalšie sem ──
+  // ── sem pridaj dalsie ──
 ];
 
 // ══════════════════════════════════════════════════════
-//  MODEL DEFINITIONS
-//  Pridaj modelku sem — cover = titulná fotka na karte
+//  MODELKY — cover = titulna fotka
 // ══════════════════════════════════════════════════════
 const models = [
   { slug: "lela_sohna", name: "Lela Sohna", cover: "pictures/models/lela_sohna/cover.png" },
   { slug: "anna_nova",  name: "Anna Nova",  cover: "pictures/models/anna_nova/cover.jpg"  },
-  // ── Pridaj ďalšie modelky sem ──
+  // sem pridaj dalsie modelky
 ];
 
-// ══════════════════════════════════════════════════════
-//  STATE
-// ══════════════════════════════════════════════════════
-let activeTab      = 'categories';  // 'categories' | 'models'
-let activeCategory = 'all';
-let activeModel    = null;          // slug alebo null
-let searchQuery    = '';
-let currentData    = [];
-let renderedCount  = 0;
-const PAGE_SIZE    = 12;
+// ── STATE ──
+let activeTab = 'categories', activeCategory = 'all', activeModel = null;
+let searchQuery = '', currentData = [], renderedCount = 0;
+const PAGE_SIZE = 12;
 
-// ── IG DETECTION ──
-(function() {
-  const ua = navigator.userAgent || '';
-  if (ua.includes('Instagram') || ua.includes('FBAN') || ua.includes('FBAV')) {
-    document.getElementById('igOverlay').style.display = 'flex';
-  }
-})();
+// ── Pomocna funkcia: ziskaj titulok z cesty suboru ──
+function titleFromPath(path) {
+  // "pictures/tits/img(3).png" → "Img (3)"
+  const file = path.split('/').pop().replace(/\.[^.]+$/, ''); // bez pripony
+  return file.replace(/([a-zA-Z]+)\((\d+)\)/, '$1 ($2)').replace(/_/g, ' ');
+}
 
-// ══════════════════════════════════════════════════════
-//  TAB SWITCHING
-// ══════════════════════════════════════════════════════
+// ── TAB SWITCHING ──
 function switchTab(tab) {
-  activeTab = tab;
-  activeModel = null;
-  activeCategory = 'all';
-  searchQuery = '';
+  activeTab = tab; activeModel = null; activeCategory = 'all'; searchQuery = '';
   document.getElementById('searchInput').value = '';
-
   document.getElementById('tabCategories').classList.toggle('active', tab === 'categories');
   document.getElementById('tabModels').classList.toggle('active', tab === 'models');
-
   document.getElementById('categoryPills').style.display = tab === 'categories' ? 'flex' : 'none';
   document.getElementById('gallery').style.display       = tab === 'categories' ? 'grid' : 'none';
   document.getElementById('sentinel').style.display      = tab === 'categories' ? 'block' : 'none';
   document.getElementById('modelsGrid').style.display    = tab === 'models'     ? 'grid' : 'none';
-
   hideBackBar();
-
-  if (tab === 'categories') {
-    buildCategories();
-    resetGallery();
-  } else {
-    document.getElementById('galleryLabel').textContent = '';
-    buildModelsGrid();
-  }
+  if (tab === 'categories') { buildCategories(); resetGallery(); }
+  else { document.getElementById('galleryLabel').textContent = ''; buildModelsGrid(); }
 }
 
-// ══════════════════════════════════════════════════════
-//  BACK BUTTON
-// ══════════════════════════════════════════════════════
-function showBackBar(label) {
-  const bar = document.getElementById('backBar');
-  bar.classList.add('visible');
-  document.getElementById('backLabel').textContent = label;
-}
-function hideBackBar() {
-  document.getElementById('backBar').classList.remove('visible');
-}
+// ── BACK ──
+function showBackBar(label) { document.getElementById('backBar').classList.add('visible'); document.getElementById('backLabel').textContent = label; }
+function hideBackBar() { document.getElementById('backBar').classList.remove('visible'); }
 function goBack() {
   if (activeModel !== null) {
-    // Späť na zoznam modeliek
     activeModel = null;
     document.getElementById('gallery').style.display    = 'none';
     document.getElementById('sentinel').style.display   = 'none';
     document.getElementById('modelsGrid').style.display = 'grid';
     document.getElementById('galleryLabel').textContent = '';
-    hideBackBar();
-    buildModelsGrid();
+    hideBackBar(); buildModelsGrid();
   }
 }
 
-// ══════════════════════════════════════════════════════
-//  CATEGORIES TAB
-// ══════════════════════════════════════════════════════
+// ── CATEGORIES ──
 function buildCategories() {
-  const cats = ['all', ...new Set(images.map(i => i.category))];
+  const cats = ['all', ...new Set(images.map(i => i.category).filter(Boolean))];
   const pills = document.getElementById('categoryPills');
   pills.innerHTML = '';
   cats.forEach(cat => {
@@ -543,35 +230,34 @@ function buildCategories() {
     pill.textContent = cat === 'all' ? 'All' : cat.charAt(0).toUpperCase() + cat.slice(1);
     pill.onclick = () => {
       document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      activeCategory = cat;
-      resetGallery();
+      pill.classList.add('active'); activeCategory = cat; resetGallery();
     };
     pills.appendChild(pill);
   });
 }
 
+// ── FILTER — title je volitelny, nekrashuje ak chyba ──
 function getFiltered() {
+  const q = searchQuery;
   return images.filter(img => {
-    const matchCat    = activeCategory === 'all' || img.category === activeCategory;
-    const matchSearch = img.title.toLowerCase().includes(searchQuery);
-    const matchModel  = activeModel === null || img.model === activeModel;
-    return matchCat && matchSearch && matchModel;
+    const matchCat   = activeCategory === 'all' || img.category === activeCategory;
+    const matchModel = activeModel === null || img.model === activeModel;
+    const t = (img.title || titleFromPath(img.img)).toLowerCase();
+    const matchSearch = !q || t.includes(q);
+    return matchCat && matchModel && matchSearch;
   });
 }
 
 function resetGallery() {
-  currentData   = getFiltered();
-  renderedCount = 0;
+  currentData = getFiltered(); renderedCount = 0;
   document.getElementById('gallery').innerHTML = '';
-
   const total = currentData.length;
   const label = document.getElementById('galleryLabel');
   if (activeModel) {
     const m = models.find(x => x.slug === activeModel);
     label.textContent = `${m ? m.name : activeModel} — ${total} photo${total !== 1 ? 's' : ''}`;
   } else if (searchQuery) {
-    label.textContent = `Results for "${searchQuery}" — ${total} photo${total !== 1 ? 's' : ''}`;
+    label.textContent = `Results for "${searchQuery}" — ${total}`;
   } else if (activeCategory !== 'all') {
     label.textContent = `${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} — ${total}`;
   } else {
@@ -581,13 +267,14 @@ function resetGallery() {
 }
 
 function renderCard(data) {
+  const title = data.title || titleFromPath(data.img);
   const div = document.createElement('div');
   div.className = 'card';
   div.innerHTML = `
     <div class="card-img-wrap">
-      <img src="${data.img}" alt="${data.title}" loading="lazy">
+      <img src="${data.img}" alt="${title}" loading="lazy">
     </div>
-    <div class="card-title">${data.title}</div>
+    <div class="card-title">${title}</div>
   `;
   div.onclick = () => openFullscreen(data);
   return div;
@@ -596,38 +283,26 @@ function renderCard(data) {
 function loadNextBatch() {
   const gallery = document.getElementById('gallery');
   if (currentData.length === 0 && renderedCount === 0) {
-    const msg = document.createElement('div');
-    msg.className = 'nothing';
-    msg.textContent = 'Nothing found';
-    gallery.appendChild(msg);
-    return;
+    const msg = document.createElement('div'); msg.className = 'nothing'; msg.textContent = 'Nothing found'; gallery.appendChild(msg); return;
   }
   const batch = currentData.slice(renderedCount, renderedCount + PAGE_SIZE);
   batch.forEach(item => gallery.appendChild(renderCard(item)));
   renderedCount += batch.length;
 }
 
-// ── Infinite scroll ──
-const observer = new IntersectionObserver((entries) => {
+const observer = new IntersectionObserver(entries => {
   if (entries[0].isIntersecting && renderedCount < currentData.length) loadNextBatch();
 }, { rootMargin: '200px' });
 observer.observe(document.getElementById('sentinel'));
 
-// ══════════════════════════════════════════════════════
-//  MODELS TAB
-// ══════════════════════════════════════════════════════
+// ── MODELS ──
 function buildModelsGrid() {
-  const grid = document.getElementById('modelsGrid');
-  grid.innerHTML = '';
-
+  const grid = document.getElementById('modelsGrid'); grid.innerHTML = '';
   models.forEach(model => {
     const count = images.filter(i => i.model === model.slug).length;
-    const card = document.createElement('div');
-    card.className = 'model-card';
+    const card = document.createElement('div'); card.className = 'model-card';
     card.innerHTML = `
-      <div class="model-card-img-wrap">
-        <img src="${model.cover}" alt="${model.name}" loading="lazy">
-      </div>
+      <div class="model-card-img-wrap"><img src="${model.cover}" alt="${model.name}" loading="lazy"></div>
       <div class="model-card-name">${model.name}</div>
       <div class="model-card-count">${count} photo${count !== 1 ? 's' : ''}</div>
     `;
@@ -638,26 +313,21 @@ function buildModelsGrid() {
 
 function openModelGallery(model) {
   activeModel = model.slug;
-
-  // Skryj models grid, ukáž gallery
   document.getElementById('modelsGrid').style.display = 'none';
   document.getElementById('gallery').style.display    = 'grid';
   document.getElementById('sentinel').style.display   = 'block';
-
   showBackBar(`← ${model.name}`);
   resetGallery();
 }
 
-// ══════════════════════════════════════════════════════
-//  FULLSCREEN VIEWER
-// ══════════════════════════════════════════════════════
+// ── FULLSCREEN ──
 function openFullscreen(data) {
+  const title = data.title || titleFromPath(data.img);
   document.getElementById('fsImg').src = data.img;
-  document.getElementById('fsTitleBar').textContent = data.title;
+  document.getElementById('fsTitleBar').textContent = title;
   buildRelated(data);
   const fs = document.getElementById('fullscreen');
-  fs.classList.add('open');
-  fs.scrollTop = 0;
+  fs.classList.add('open'); fs.scrollTop = 0;
   document.body.style.overflow = 'hidden';
   window.open(data.link, '_blank');
 }
@@ -669,25 +339,19 @@ function closeFullscreen() {
 }
 
 function buildRelated(data) {
-  const grid = document.getElementById('relatedGrid');
-  grid.innerHTML = '';
-  // Príbuzné = rovnaká kategória alebo rovnaká modelka
+  const grid = document.getElementById('relatedGrid'); grid.innerHTML = '';
   const related = images.filter(img =>
     img !== data && (img.category === data.category || img.model === data.model)
   ).slice(0, 18);
-
   if (related.length === 0) {
-    grid.innerHTML = '<div style="color:#666;font-size:13px;padding:8px 0;grid-column:1/-1;">No related photos</div>';
-    return;
+    grid.innerHTML = '<div style="color:#666;font-size:13px;padding:8px 0;grid-column:1/-1;">No related photos</div>'; return;
   }
   related.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'related-card';
+    const t = item.title || titleFromPath(item.img);
+    const card = document.createElement('div'); card.className = 'related-card';
     card.innerHTML = `
-      <div class="related-card-img-wrap">
-        <img src="${item.img}" alt="${item.title}" loading="lazy">
-      </div>
-      <div class="related-card-title">${item.title}</div>
+      <div class="related-card-img-wrap"><img src="${item.img}" alt="${t}" loading="lazy"></div>
+      <div class="related-card-title">${t}</div>
     `;
     card.onclick = () => openFullscreen(item);
     grid.appendChild(card);
@@ -696,17 +360,11 @@ function buildRelated(data) {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFullscreen(); });
 
-// ══════════════════════════════════════════════════════
-//  SEARCH
-// ══════════════════════════════════════════════════════
 document.getElementById('searchInput').addEventListener('input', function() {
   searchQuery = this.value.toLowerCase().trim();
   if (activeTab === 'categories') resetGallery();
 });
 
-// ══════════════════════════════════════════════════════
-//  INIT
-// ══════════════════════════════════════════════════════
 switchTab('categories');
 </script>
 </body>
