@@ -45,12 +45,38 @@ body {
   outline: none;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
-  box-sizing: border-box;
 }
 
 /* ── BANNER ── */
 .banner { width: 100%; text-align: center; padding: 5px 0; overflow: hidden; }
 .banner-top { margin-top: 60px; }
+
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  gap: 0;
+  background: #111;
+  border-bottom: 2px solid #1e1e1e;
+  position: sticky;
+  top: 60px;
+  z-index: 100;
+}
+.tab-btn {
+  flex: 1;
+  padding: 12px 8px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #666;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.15s;
+  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tab-btn:hover { color: #fff; }
+.tab-btn.active { color: orange; border-bottom-color: orange; }
 
 /* ── CATEGORY PILLS ── */
 .categories {
@@ -120,6 +146,62 @@ body {
   text-overflow: ellipsis;
 }
 
+/* ── MODEL CARDS ── */
+.models-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 10px;
+}
+@media (min-width: 480px) { .models-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 768px) { .models-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.model-card {
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  border: 2px solid transparent;
+  transition: border-color 0.15s;
+}
+.model-card:hover { border-color: orange; }
+.model-card:active { opacity: 0.8; }
+.model-card-img-wrap { position: relative; padding-top: 120%; overflow: hidden; }
+.model-card img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.model-card-name {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 10px 5px;
+  color: #fff;
+}
+.model-card-count {
+  font-size: 11px;
+  padding: 0 10px 8px;
+  color: #888;
+}
+
+/* ── BACK BUTTON ── */
+.back-bar {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #111;
+  border-bottom: 1px solid #1e1e1e;
+  cursor: pointer;
+}
+.back-bar.visible { display: flex; }
+.back-bar svg { width: 18px; height: 18px; fill: orange; flex-shrink: 0; }
+.back-bar span { font-size: 14px; font-weight: 600; color: orange; }
+
+/* ── SENTINEL ── */
 .sentinel { height: 40px; }
 .nothing {
   color: #aaa;
@@ -130,10 +212,9 @@ body {
 }
 
 /* ── FULLSCREEN ── */
-/* sits right below the fixed header, scrollable */
 .fullscreen {
   position: fixed;
-  top: 60px;           /* header height */
+  top: 60px;
   left: 0;
   width: 100%;
   height: calc(100% - 60px);
@@ -146,10 +227,9 @@ body {
 }
 .fullscreen.open { display: flex; }
 
-/* main image block fills full visible area so you must scroll to see related */
 .fs-img-area {
   width: 100%;
-  height: calc(100vh - 60px); /* exactly the visible area below header */
+  height: calc(100vh - 60px);
   flex-shrink: 0;
   position: relative;
   background: #000;
@@ -158,48 +238,35 @@ body {
   justify-content: center;
 }
 .fs-img-area img {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: contain;
   display: block;
   user-select: none;
 }
 .fs-close {
   position: absolute;
-  top: 12px;
-  right: 14px;
+  top: 12px; right: 14px;
   width: 36px; height: 36px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-  color: white;
+  font-size: 24px; font-weight: bold;
+  cursor: pointer; color: white;
   background: rgba(0,0,0,0.65);
-  border-radius: 50%;
-  z-index: 10;
+  border-radius: 50%; z-index: 10;
 }
 .fs-title-bar {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   background: linear-gradient(transparent, rgba(0,0,0,0.8));
   padding: 30px 14px 14px;
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 15px; font-weight: 600;
   pointer-events: none;
 }
-
-/* scroll hint arrow */
 .fs-scroll-hint {
   position: absolute;
-  bottom: 18px;
-  left: 50%;
+  bottom: 18px; left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  color: rgba(255,255,255,0.5);
-  font-size: 11px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  color: rgba(255,255,255,0.5); font-size: 11px;
   pointer-events: none;
   animation: bounce 1.6s infinite;
 }
@@ -217,11 +284,8 @@ body {
   flex-shrink: 0;
 }
 .related-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #888;
-  margin-bottom: 10px;
+  font-size: 11px; text-transform: uppercase;
+  letter-spacing: 1px; color: #888; margin-bottom: 10px;
 }
 .related-grid {
   display: grid;
@@ -231,55 +295,37 @@ body {
 @media (min-width: 480px) { .related-grid { grid-template-columns: repeat(4, 1fr); } }
 
 .related-card {
-  cursor: pointer;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #1c1c1c;
+  cursor: pointer; border-radius: 8px;
+  overflow: hidden; background: #1c1c1c;
   -webkit-tap-highlight-color: transparent;
 }
 .related-card:active { opacity: 0.8; }
 .related-card-img-wrap { position: relative; padding-top: 130%; }
 .related-card img {
-  position: absolute;
-  top: 0; left: 0;
+  position: absolute; top: 0; left: 0;
   width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
+  object-fit: cover; display: block;
 }
 .related-card-title {
-  font-size: 11px;
-  color: #aaa;
+  font-size: 11px; color: #aaa;
   padding: 4px 5px 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
 /* ── IG OVERLAY ── */
 .ig-overlay {
-  position: fixed;
-  inset: 0;
-  background: #0b0b0b;
-  z-index: 99999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 32px;
-  text-align: center;
+  position: fixed; inset: 0; background: #0b0b0b;
+  z-index: 99999; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 32px; text-align: center;
 }
 .ig-icon { font-size: 56px; margin-bottom: 20px; }
 .ig-overlay h2 { font-size: 24px; font-weight: 800; margin-bottom: 12px; }
 .ig-overlay p { color: #888; font-size: 15px; line-height: 1.7; max-width: 300px; }
 .ig-overlay strong { color: white; }
 .ig-step {
-  display: inline-block;
-  background: orange;
-  color: #000;
-  font-weight: 700;
-  padding: 2px 10px;
-  border-radius: 6px;
-  margin-top: 4px;
+  display: inline-block; background: orange; color: #000;
+  font-weight: 700; padding: 2px 10px; border-radius: 6px; margin-top: 4px;
 }
 </style>
 </head>
@@ -314,15 +360,30 @@ body {
   <script src="https://www.highperformanceformat.com/983b9cd2f75f07d4c0212fa312f1c19e/invoke.js"></script>
 </div>
 
-<!-- CATEGORY PILLS -->
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab-btn active" id="tabCategories" onclick="switchTab('categories')">📁 Categories</div>
+  <div class="tab-btn" id="tabModels" onclick="switchTab('models')">👤 Models</div>
+</div>
+
+<!-- BACK BAR (shown when browsing a model or category drill-down) -->
+<div class="back-bar" id="backBar" onclick="goBack()">
+  <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+  <span id="backLabel">Back</span>
+</div>
+
+<!-- CATEGORY PILLS (visible in categories tab) -->
 <div class="categories" id="categoryPills"></div>
 
 <!-- GALLERY LABEL -->
-<div class="gallery-label" id="galleryLabel">All photos</div>
+<div class="gallery-label" id="galleryLabel"></div>
 
-<!-- GALLERY -->
+<!-- PHOTO GALLERY (categories tab content) -->
 <div class="gallery" id="gallery"></div>
 <div class="sentinel" id="sentinel"></div>
+
+<!-- MODELS GRID (models tab content) -->
+<div class="models-grid" id="modelsGrid" style="display:none;"></div>
 
 <!-- BOTTOM BANNER -->
 <div class="banner">
@@ -331,27 +392,83 @@ body {
 
 <!-- FULLSCREEN VIEWER -->
 <div class="fullscreen" id="fullscreen">
-
-  <!-- MAIN IMAGE — fills full visible area, scroll down for related -->
   <div class="fs-img-area">
     <div class="fs-close" onclick="closeFullscreen()">×</div>
     <img id="fsImg" src="" alt="">
     <div class="fs-title-bar" id="fsTitleBar"></div>
     <div class="fs-scroll-hint">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16l-6-6h12z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 16l-6-6h12z"/></svg>
       more
     </div>
   </div>
-
-  <!-- RELATED — visible only when user scrolls down -->
   <div class="related-section">
     <div class="related-label">More like this</div>
     <div class="related-grid" id="relatedGrid"></div>
   </div>
-
 </div>
 
 <script>
+// ══════════════════════════════════════════════════════
+//  IMAGE DATA
+//
+//  Štruktúra priečinkov:
+//    pictures/nature/img1.jpg
+//    pictures/city/img1.jpg
+//    pictures/cosplay/img1.jpg
+//    pictures/bikiny/img1.jpg
+//    pictures/models/lela_sohna/img1.jpg   ← modelky
+//    pictures/models/anna_nova/img1.jpg
+//
+//  Každý obrázok má:
+//    img    - cesta k súboru
+//    title  - popis / názov
+//    category - "nature" | "city" | "cosplay" | "bikiny"  (pre kategórie tab)
+//    model  - slug modelky, napr. "lela_sohna" (voliteľné, pre models tab)
+//    link   - affiliate / popunder odkaz
+// ══════════════════════════════════════════════════════
+const images = [
+
+  // ── NATURE ──
+  { img: "pictures/Tits/img(1).png",    category: "nature",  model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+  { img: "pictures/Tits/img(2).png",        category: "nature",  model: "anna_nova",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+  { img: "pictures/Tits/img(3).png",      category: "nature",  model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+
+  // ── CITY ──
+  { img: "pictures/Ass/img(1).png",         category: "city",    model: "anna_nova",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+  { img: "pictures/Ass/img(2).png",       category: "city",    model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+
+  // ── COSPLAY ──
+  { img: "pictures/cosplay/img(1).png",     category: "cosplay", model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+  { img: "pictures/cosplay/img(2).png",     category: "cosplay", model: "anna_nova",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+
+  // ── BIKINY ──
+  { img: "pictures/bikiny/img(1).png",        category: "bikiny",  model: "anna_nova",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+  { img: "pictures/bikiny/img(2).png",       category: "bikiny",  model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
+
+  // ── Pridaj ďalšie sem ──
+];
+
+// ══════════════════════════════════════════════════════
+//  MODEL DEFINITIONS
+//  Pridaj modelku sem — cover = titulná fotka na karte
+// ══════════════════════════════════════════════════════
+const models = [
+  { slug: "lela_sohna", name: "Lela Sohna", cover: "pictures/models/lela_sohna/cover.jpg" },
+  { slug: "anna_nova",  name: "Anna Nova",  cover: "pictures/models/anna_nova/cover.jpg"  },
+  // ── Pridaj ďalšie modelky sem ──
+];
+
+// ══════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════
+let activeTab      = 'categories';  // 'categories' | 'models'
+let activeCategory = 'all';
+let activeModel    = null;          // slug alebo null
+let searchQuery    = '';
+let currentData    = [];
+let renderedCount  = 0;
+const PAGE_SIZE    = 12;
+
 // ── IG DETECTION ──
 (function() {
   const ua = navigator.userAgent || '';
@@ -360,69 +477,109 @@ body {
   }
 })();
 
-// ── IMAGE DATA ──
-// tags: used for category pills AND related section
-// Add more images by copying the pattern below
-const images = [
-  { img: "pictures/img1.png", title: "Mountain Sunrise", tags: ["nature", "mountain"], link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/img2.png", title: "Forest Trail",     tags: ["nature", "forest"],   link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/img3.png", title: "City Lights",      tags: ["city", "night"],      link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  // pridaj ďalšie sem...
-];
+// ══════════════════════════════════════════════════════
+//  TAB SWITCHING
+// ══════════════════════════════════════════════════════
+function switchTab(tab) {
+  activeTab = tab;
+  activeModel = null;
+  activeCategory = 'all';
+  searchQuery = '';
+  document.getElementById('searchInput').value = '';
 
-// ── STATE ──
-let activeCategory = 'all';
-let searchQuery    = '';
-let currentData    = [];
-let renderedCount  = 0;
-const PAGE_SIZE    = 12;
+  document.getElementById('tabCategories').classList.toggle('active', tab === 'categories');
+  document.getElementById('tabModels').classList.toggle('active', tab === 'models');
 
-// ── BUILD CATEGORY PILLS ──
+  document.getElementById('categoryPills').style.display = tab === 'categories' ? 'flex' : 'none';
+  document.getElementById('gallery').style.display       = tab === 'categories' ? 'grid' : 'none';
+  document.getElementById('sentinel').style.display      = tab === 'categories' ? 'block' : 'none';
+  document.getElementById('modelsGrid').style.display    = tab === 'models'     ? 'grid' : 'none';
+
+  hideBackBar();
+
+  if (tab === 'categories') {
+    buildCategories();
+    resetGallery();
+  } else {
+    document.getElementById('galleryLabel').textContent = '';
+    buildModelsGrid();
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  BACK BUTTON
+// ══════════════════════════════════════════════════════
+function showBackBar(label) {
+  const bar = document.getElementById('backBar');
+  bar.classList.add('visible');
+  document.getElementById('backLabel').textContent = label;
+}
+function hideBackBar() {
+  document.getElementById('backBar').classList.remove('visible');
+}
+function goBack() {
+  if (activeModel !== null) {
+    // Späť na zoznam modeliek
+    activeModel = null;
+    document.getElementById('gallery').style.display    = 'none';
+    document.getElementById('sentinel').style.display   = 'none';
+    document.getElementById('modelsGrid').style.display = 'grid';
+    document.getElementById('galleryLabel').textContent = '';
+    hideBackBar();
+    buildModelsGrid();
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  CATEGORIES TAB
+// ══════════════════════════════════════════════════════
 function buildCategories() {
-  const tagSet = new Set();
-  images.forEach(img => img.tags.forEach(t => tagSet.add(t)));
+  const cats = ['all', ...new Set(images.map(i => i.category))];
   const pills = document.getElementById('categoryPills');
   pills.innerHTML = '';
-  ['all', ...tagSet].forEach(tag => {
+  cats.forEach(cat => {
     const pill = document.createElement('div');
-    pill.className = 'pill' + (tag === 'all' ? ' active' : '');
-    pill.textContent = tag.charAt(0).toUpperCase() + tag.slice(1);
+    pill.className = 'pill' + (cat === activeCategory ? ' active' : '');
+    pill.textContent = cat === 'all' ? 'All' : cat.charAt(0).toUpperCase() + cat.slice(1);
     pill.onclick = () => {
       document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
-      activeCategory = tag;
+      activeCategory = cat;
       resetGallery();
     };
     pills.appendChild(pill);
   });
 }
 
-// ── FILTER ──
 function getFiltered() {
   return images.filter(img => {
-    const matchCat    = activeCategory === 'all' || img.tags.includes(activeCategory);
+    const matchCat    = activeCategory === 'all' || img.category === activeCategory;
     const matchSearch = img.title.toLowerCase().includes(searchQuery);
-    return matchCat && matchSearch;
+    const matchModel  = activeModel === null || img.model === activeModel;
+    return matchCat && matchSearch && matchModel;
   });
 }
 
-// ── RESET GALLERY ──
 function resetGallery() {
   currentData   = getFiltered();
   renderedCount = 0;
   document.getElementById('gallery').innerHTML = '';
+
+  const total = currentData.length;
   const label = document.getElementById('galleryLabel');
-  if (searchQuery) {
-    label.textContent = `Results for "${searchQuery}" — ${currentData.length} photo${currentData.length !== 1 ? 's' : ''}`;
+  if (activeModel) {
+    const m = models.find(x => x.slug === activeModel);
+    label.textContent = `${m ? m.name : activeModel} — ${total} photo${total !== 1 ? 's' : ''}`;
+  } else if (searchQuery) {
+    label.textContent = `Results for "${searchQuery}" — ${total} photo${total !== 1 ? 's' : ''}`;
   } else if (activeCategory !== 'all') {
-    label.textContent = `${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} — ${currentData.length}`;
+    label.textContent = `${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} — ${total}`;
   } else {
-    label.textContent = `All photos — ${currentData.length}`;
+    label.textContent = `All photos — ${total}`;
   }
   loadNextBatch();
 }
 
-// ── RENDER CARD ──
 function renderCard(data) {
   const div = document.createElement('div');
   div.className = 'card';
@@ -436,7 +593,6 @@ function renderCard(data) {
   return div;
 }
 
-// ── LOAD NEXT BATCH ──
 function loadNextBatch() {
   const gallery = document.getElementById('gallery');
   if (currentData.length === 0 && renderedCount === 0) {
@@ -451,24 +607,59 @@ function loadNextBatch() {
   renderedCount += batch.length;
 }
 
-// ── INFINITE SCROLL ──
+// ── Infinite scroll ──
 const observer = new IntersectionObserver((entries) => {
-  if (entries[0].isIntersecting && renderedCount < currentData.length) {
-    loadNextBatch();
-  }
+  if (entries[0].isIntersecting && renderedCount < currentData.length) loadNextBatch();
 }, { rootMargin: '200px' });
 observer.observe(document.getElementById('sentinel'));
 
-// ── OPEN FULLSCREEN ──
+// ══════════════════════════════════════════════════════
+//  MODELS TAB
+// ══════════════════════════════════════════════════════
+function buildModelsGrid() {
+  const grid = document.getElementById('modelsGrid');
+  grid.innerHTML = '';
+
+  models.forEach(model => {
+    const count = images.filter(i => i.model === model.slug).length;
+    const card = document.createElement('div');
+    card.className = 'model-card';
+    card.innerHTML = `
+      <div class="model-card-img-wrap">
+        <img src="${model.cover}" alt="${model.name}" loading="lazy">
+      </div>
+      <div class="model-card-name">${model.name}</div>
+      <div class="model-card-count">${count} photo${count !== 1 ? 's' : ''}</div>
+    `;
+    card.onclick = () => openModelGallery(model);
+    grid.appendChild(card);
+  });
+}
+
+function openModelGallery(model) {
+  activeModel = model.slug;
+
+  // Skryj models grid, ukáž gallery
+  document.getElementById('modelsGrid').style.display = 'none';
+  document.getElementById('gallery').style.display    = 'grid';
+  document.getElementById('sentinel').style.display   = 'block';
+
+  showBackBar(`← ${model.name}`);
+  resetGallery();
+}
+
+// ══════════════════════════════════════════════════════
+//  FULLSCREEN VIEWER
+// ══════════════════════════════════════════════════════
 function openFullscreen(data) {
   document.getElementById('fsImg').src = data.img;
   document.getElementById('fsTitleBar').textContent = data.title;
   buildRelated(data);
   const fs = document.getElementById('fullscreen');
   fs.classList.add('open');
-  fs.scrollTop = 0;  // start at top = main image, user scrolls down for related
+  fs.scrollTop = 0;
   document.body.style.overflow = 'hidden';
-  window.open(data.link, '_blank'); // popunder
+  window.open(data.link, '_blank');
 }
 
 function closeFullscreen() {
@@ -477,12 +668,12 @@ function closeFullscreen() {
   document.getElementById('fsImg').src = '';
 }
 
-// ── BUILD RELATED ──
 function buildRelated(data) {
   const grid = document.getElementById('relatedGrid');
   grid.innerHTML = '';
+  // Príbuzné = rovnaká kategória alebo rovnaká modelka
   const related = images.filter(img =>
-    img !== data && img.tags.some(t => data.tags.includes(t))
+    img !== data && (img.category === data.category || img.model === data.model)
   ).slice(0, 18);
 
   if (related.length === 0) {
@@ -503,18 +694,20 @@ function buildRelated(data) {
   });
 }
 
-// ── ESC to close ──
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFullscreen(); });
 
-// ── SEARCH ──
+// ══════════════════════════════════════════════════════
+//  SEARCH
+// ══════════════════════════════════════════════════════
 document.getElementById('searchInput').addEventListener('input', function() {
   searchQuery = this.value.toLowerCase().trim();
-  resetGallery();
+  if (activeTab === 'categories') resetGallery();
 });
 
-// ── INIT ──
-buildCategories();
-resetGallery();
+// ══════════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════════
+switchTab('categories');
 </script>
 </body>
 </html>
