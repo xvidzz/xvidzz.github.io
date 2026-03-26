@@ -5,28 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Xvidzz</title>
 <link rel="icon" href="pictures/logo.png" type="image/png">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
-  --bg: #080808;
-  --surface: #111111;
-  --surface2: #1a1a1a;
-  --accent: #ff6b00;
-  --accent2: #ff9500;
-  --text: #f0f0f0;
-  --muted: #888;
-  --radius: 12px;
-}
-
-html { scroll-behavior: smooth; }
-
 body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  background: #0b0b0b;
+  color: white;
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -35,67 +22,34 @@ body {
 .header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: rgba(8,8,8,0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 10px 16px;
+  justify-content: space-between;
+  background: #111;
+  padding: 10px 20px;
   position: fixed;
   width: 100%;
   z-index: 1000;
   top: 0;
-  border-bottom: 1px solid #1e1e1e;
 }
-
-.logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 28px;
-  letter-spacing: 1px;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.logo span {
-  background: var(--accent);
-  color: #000;
-  padding: 1px 6px;
-  border-radius: 5px;
-}
-
-.search-wrap {
-  flex: 1;
-  position: relative;
-}
-.search-wrap input {
+.left { display: flex; align-items: center; gap: 15px; }
+.logo { font-size: 26px; font-weight: 800; }
+.logo span { background: orange; color: black; padding: 2px 6px; border-radius: 4px; }
+.search { flex: 1; display: flex; justify-content: center; }
+.search input {
   width: 100%;
-  padding: 10px 16px 10px 40px;
-  border-radius: 999px;
-  border: 1px solid #222;
-  background: var(--surface2);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
+  max-width: 400px;
+  padding: 10px;
+  border-radius: 25px;
+  border: none;
+  background: #1c1c1c;
+  color: white;
   outline: none;
-  transition: border-color 0.2s;
-}
-.search-wrap input:focus { border-color: var(--accent); }
-.search-wrap::before {
-  content: '🔍';
-  position: absolute;
-  left: 13px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 13px;
-  pointer-events: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
 /* ── BANNER ── */
-.banner {
-  width: 100%;
-  text-align: center;
-  padding: 6px 0;
-  background: var(--bg);
-  overflow: hidden;
-}
+.banner { width: 100%; text-align: center; padding: 5px 0; overflow: hidden; }
 .banner-top { margin-top: 60px; }
 
 /* ── CATEGORY PILLS ── */
@@ -113,197 +67,187 @@ body {
   padding: 6px 16px;
   border-radius: 999px;
   border: 1px solid #2a2a2a;
-  background: var(--surface);
-  color: var(--muted);
+  background: #111;
+  color: #888;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.18s;
+  transition: all 0.15s;
   user-select: none;
 }
-.pill:hover, .pill.active {
-  background: var(--accent);
-  color: #000;
-  border-color: var(--accent);
-}
+.pill:hover, .pill.active { background: orange; color: #000; border-color: orange; }
 
-/* ── GALLERY GRID ── */
+/* ── GALLERY ── */
 .gallery-label {
   padding: 4px 14px 6px;
   font-size: 12px;
-  color: var(--muted);
+  color: #888;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-
 .gallery {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
   padding: 0 10px 10px;
 }
-
-@media (min-width: 480px) {
-  .gallery { grid-template-columns: repeat(3, 1fr); }
-}
-@media (min-width: 768px) {
-  .gallery { grid-template-columns: repeat(4, 1fr); }
-}
-@media (min-width: 1024px) {
-  .gallery { grid-template-columns: repeat(5, 1fr); }
-}
+@media (min-width: 480px) { .gallery { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 768px) { .gallery { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 1024px) { .gallery { grid-template-columns: repeat(5, 1fr); } }
 
 .card {
-  background: var(--surface);
-  border-radius: var(--radius);
+  background: #111;
+  border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
-  position: relative;
-  transition: transform 0.18s, box-shadow 0.18s;
   -webkit-tap-highlight-color: transparent;
 }
-.card:active { transform: scale(0.97); }
-.card-img-wrap {
-  position: relative;
-  padding-top: 130%;
-  overflow: hidden;
-}
+.card:active { opacity: 0.8; }
+.card-img-wrap { position: relative; padding-top: 130%; overflow: hidden; }
 .card img {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.3s;
 }
-.card:hover img { transform: scale(1.05); }
-.card-overlay {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.75));
-  padding: 20px 8px 8px;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.card:hover .card-overlay { opacity: 1; }
 .card-title {
-  font-size: 12px;
-  color: #ddd;
-  padding: 6px 8px 7px;
+  font-size: 13px;
+  padding: 5px 8px 7px;
+  color: #ccc;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* ── LAZY LOAD SENTINEL ── */
 .sentinel { height: 40px; }
-
 .nothing {
-  color: var(--muted);
+  color: #aaa;
   font-size: 16px;
   text-align: center;
   grid-column: 1 / -1;
   padding: 60px 0;
 }
 
-/* ── FULLSCREEN VIEWER ── */
+/* ── FULLSCREEN ── */
+/* sits right below the fixed header, scrollable */
 .fullscreen {
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.97);
+  top: 60px;           /* header height */
+  left: 0;
+  width: 100%;
+  height: calc(100% - 60px);
+  background: #000;
   display: none;
   flex-direction: column;
-  z-index: 2000;
-  overscroll-behavior: contain;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 999;
 }
 .fullscreen.open { display: flex; }
 
-.fs-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  flex-shrink: 0;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(8px);
-}
-.fs-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: calc(100% - 60px);
-}
-.fs-close {
-  width: 34px; height: 34px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px;
-  cursor: pointer;
-  color: white;
-  background: #222;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
+/* main image block fills full visible area so you must scroll to see related */
 .fs-img-area {
-  flex: 1;
+  width: 100%;
+  height: calc(100vh - 60px); /* exactly the visible area below header */
+  flex-shrink: 0;
+  position: relative;
+  background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  padding: 10px;
 }
 .fs-img-area img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  border-radius: 8px;
+  display: block;
   user-select: none;
 }
+.fs-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  background: rgba(0,0,0,0.65);
+  border-radius: 50%;
+  z-index: 10;
+}
+.fs-title-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  padding: 30px 14px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  pointer-events: none;
+}
 
-/* ── RELATED SECTION ── */
+/* scroll hint arrow */
+.fs-scroll-hint {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  color: rgba(255,255,255,0.5);
+  font-size: 11px;
+  pointer-events: none;
+  animation: bounce 1.6s infinite;
+}
+.fs-scroll-hint svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.5); }
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(5px); }
+}
+
+/* ── RELATED ── */
 .related-section {
-  flex-shrink: 0;
-  background: var(--surface);
-  padding: 10px 12px 14px;
+  background: #111;
+  padding: 14px 12px 30px;
   border-top: 1px solid #1e1e1e;
+  flex-shrink: 0;
 }
 .related-label {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--muted);
-  margin-bottom: 8px;
+  color: #888;
+  margin-bottom: 10px;
 }
-.related-scroll {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding-bottom: 2px;
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
 }
-.related-scroll::-webkit-scrollbar { display: none; }
+@media (min-width: 480px) { .related-grid { grid-template-columns: repeat(4, 1fr); } }
+
 .related-card {
-  flex-shrink: 0;
-  width: 90px;
   cursor: pointer;
   border-radius: 8px;
   overflow: hidden;
-  background: var(--surface2);
-  transition: transform 0.15s;
+  background: #1c1c1c;
+  -webkit-tap-highlight-color: transparent;
 }
-.related-card:active { transform: scale(0.95); }
+.related-card:active { opacity: 0.8; }
+.related-card-img-wrap { position: relative; padding-top: 130%; }
 .related-card img {
-  width: 100%;
-  height: 110px;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   object-fit: cover;
   display: block;
 }
 .related-card-title {
-  font-size: 10px;
+  font-size: 11px;
   color: #aaa;
   padding: 4px 5px 5px;
   white-space: nowrap;
@@ -315,7 +259,7 @@ body {
 .ig-overlay {
   position: fixed;
   inset: 0;
-  background: #080808;
+  background: #0b0b0b;
   z-index: 99999;
   display: flex;
   flex-direction: column;
@@ -325,22 +269,12 @@ body {
   text-align: center;
 }
 .ig-icon { font-size: 56px; margin-bottom: 20px; }
-.ig-overlay h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px;
-  letter-spacing: 1px;
-  margin-bottom: 12px;
-}
-.ig-overlay p {
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.7;
-  max-width: 300px;
-}
+.ig-overlay h2 { font-size: 24px; font-weight: 800; margin-bottom: 12px; }
+.ig-overlay p { color: #888; font-size: 15px; line-height: 1.7; max-width: 300px; }
 .ig-overlay strong { color: white; }
 .ig-step {
   display: inline-block;
-  background: var(--accent);
+  background: orange;
   color: #000;
   font-weight: 700;
   padding: 2px 10px;
@@ -364,9 +298,11 @@ body {
 
 <!-- HEADER -->
 <div class="header">
-  <div class="logo">X<span>vidzz</span></div>
-  <div class="search-wrap">
-    <input type="text" id="searchInput" placeholder="Search...">
+  <div class="left">
+    <div class="logo">X<span>vidzz</span></div>
+  </div>
+  <div class="search">
+    <input type="text" id="searchInput" placeholder="Search Xvidzz">
   </div>
 </div>
 
@@ -395,17 +331,24 @@ body {
 
 <!-- FULLSCREEN VIEWER -->
 <div class="fullscreen" id="fullscreen">
-  <div class="fs-topbar">
-    <div class="fs-title" id="fsTitle"></div>
-    <div class="fs-close" onclick="closeFullscreen()">×</div>
-  </div>
+
+  <!-- MAIN IMAGE — fills full visible area, scroll down for related -->
   <div class="fs-img-area">
+    <div class="fs-close" onclick="closeFullscreen()">×</div>
     <img id="fsImg" src="" alt="">
+    <div class="fs-title-bar" id="fsTitleBar"></div>
+    <div class="fs-scroll-hint">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16l-6-6h12z"/></svg>
+      more
+    </div>
   </div>
+
+  <!-- RELATED — visible only when user scrolls down -->
   <div class="related-section">
     <div class="related-label">More like this</div>
-    <div class="related-scroll" id="relatedScroll"></div>
+    <div class="related-grid" id="relatedGrid"></div>
   </div>
+
 </div>
 
 <script>
@@ -418,29 +361,28 @@ body {
 })();
 
 // ── IMAGE DATA ──
-// Format: { img, title, tags: [] }
-// tags drive the "related" and category filter
+// tags: used for category pills AND related section
+// Add more images by copying the pattern below
 const images = [
   { img: "pictures/img1.png", title: "Mountain Sunrise", tags: ["nature", "mountain"], link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
   { img: "pictures/img2.png", title: "Forest Trail",     tags: ["nature", "forest"],   link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
   { img: "pictures/img3.png", title: "City Lights",      tags: ["city", "night"],      link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  // ADD MORE IMAGES HERE — just copy the line above
+  // pridaj ďalšie sem...
 ];
 
 // ── STATE ──
 let activeCategory = 'all';
-let searchQuery = '';
-let currentData = [];     // currently visible filtered images
-let renderedCount = 0;
-const PAGE_SIZE = 12;     // how many images load per scroll batch
+let searchQuery    = '';
+let currentData    = [];
+let renderedCount  = 0;
+const PAGE_SIZE    = 12;
 
-// ── BUILD CATEGORIES FROM TAGS ──
+// ── BUILD CATEGORY PILLS ──
 function buildCategories() {
   const tagSet = new Set();
   images.forEach(img => img.tags.forEach(t => tagSet.add(t)));
   const pills = document.getElementById('categoryPills');
   pills.innerHTML = '';
-
   ['all', ...tagSet].forEach(tag => {
     const pill = document.createElement('div');
     pill.className = 'pill' + (tag === 'all' ? ' active' : '');
@@ -455,39 +397,38 @@ function buildCategories() {
   });
 }
 
-// ── FILTER LOGIC ──
+// ── FILTER ──
 function getFiltered() {
   return images.filter(img => {
-    const matchCat = activeCategory === 'all' || img.tags.includes(activeCategory);
+    const matchCat    = activeCategory === 'all' || img.tags.includes(activeCategory);
     const matchSearch = img.title.toLowerCase().includes(searchQuery);
     return matchCat && matchSearch;
   });
 }
 
-// ── RESET & RE-RENDER ──
+// ── RESET GALLERY ──
 function resetGallery() {
-  currentData = getFiltered();
+  currentData   = getFiltered();
   renderedCount = 0;
   document.getElementById('gallery').innerHTML = '';
   const label = document.getElementById('galleryLabel');
   if (searchQuery) {
     label.textContent = `Results for "${searchQuery}" — ${currentData.length} photo${currentData.length !== 1 ? 's' : ''}`;
   } else if (activeCategory !== 'all') {
-    label.textContent = `${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} — ${currentData.length} photo${currentData.length !== 1 ? 's' : ''}`;
+    label.textContent = `${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} — ${currentData.length}`;
   } else {
     label.textContent = `All photos — ${currentData.length}`;
   }
   loadNextBatch();
 }
 
-// ── RENDER A CARD ──
-function renderCard(data, index) {
+// ── RENDER CARD ──
+function renderCard(data) {
   const div = document.createElement('div');
   div.className = 'card';
   div.innerHTML = `
     <div class="card-img-wrap">
       <img src="${data.img}" alt="${data.title}" loading="lazy">
-      <div class="card-overlay"></div>
     </div>
     <div class="card-title">${data.title}</div>
   `;
@@ -495,10 +436,9 @@ function renderCard(data, index) {
   return div;
 }
 
-// ── LOAD NEXT BATCH (infinite scroll) ──
+// ── LOAD NEXT BATCH ──
 function loadNextBatch() {
   const gallery = document.getElementById('gallery');
-
   if (currentData.length === 0 && renderedCount === 0) {
     const msg = document.createElement('div');
     msg.className = 'nothing';
@@ -506,77 +446,65 @@ function loadNextBatch() {
     gallery.appendChild(msg);
     return;
   }
-
   const batch = currentData.slice(renderedCount, renderedCount + PAGE_SIZE);
-  batch.forEach((item, i) => gallery.appendChild(renderCard(item, renderedCount + i)));
+  batch.forEach(item => gallery.appendChild(renderCard(item)));
   renderedCount += batch.length;
 }
 
-// ── INFINITE SCROLL via IntersectionObserver ──
-const sentinel = document.getElementById('sentinel');
+// ── INFINITE SCROLL ──
 const observer = new IntersectionObserver((entries) => {
   if (entries[0].isIntersecting && renderedCount < currentData.length) {
     loadNextBatch();
   }
 }, { rootMargin: '200px' });
-observer.observe(sentinel);
+observer.observe(document.getElementById('sentinel'));
 
-// ── FULLSCREEN ──
-let currentOpen = null;
-
+// ── OPEN FULLSCREEN ──
 function openFullscreen(data) {
-  currentOpen = data;
   document.getElementById('fsImg').src = data.img;
-  document.getElementById('fsTitle').textContent = data.title;
+  document.getElementById('fsTitleBar').textContent = data.title;
   buildRelated(data);
-  document.getElementById('fullscreen').classList.add('open');
+  const fs = document.getElementById('fullscreen');
+  fs.classList.add('open');
+  fs.scrollTop = 0;  // start at top = main image, user scrolls down for related
   document.body.style.overflow = 'hidden';
-  // popunder / smartlink
-  window.open(data.link, '_blank');
+  window.open(data.link, '_blank'); // popunder
 }
 
 function closeFullscreen() {
   document.getElementById('fullscreen').classList.remove('open');
   document.body.style.overflow = '';
   document.getElementById('fsImg').src = '';
-  currentOpen = null;
 }
 
-// ── BUILD RELATED (same tag, exclude current) ──
+// ── BUILD RELATED ──
 function buildRelated(data) {
-  const scroll = document.getElementById('relatedScroll');
-  scroll.innerHTML = '';
-
+  const grid = document.getElementById('relatedGrid');
+  grid.innerHTML = '';
   const related = images.filter(img =>
     img !== data && img.tags.some(t => data.tags.includes(t))
-  ).slice(0, 20);
+  ).slice(0, 18);
 
   if (related.length === 0) {
-    scroll.innerHTML = '<div style="color:#666;font-size:13px;padding:8px 0;">No related photos</div>';
+    grid.innerHTML = '<div style="color:#666;font-size:13px;padding:8px 0;grid-column:1/-1;">No related photos</div>';
     return;
   }
-
   related.forEach(item => {
     const card = document.createElement('div');
     card.className = 'related-card';
     card.innerHTML = `
-      <img src="${item.img}" alt="${item.title}" loading="lazy">
+      <div class="related-card-img-wrap">
+        <img src="${item.img}" alt="${item.title}" loading="lazy">
+      </div>
       <div class="related-card-title">${item.title}</div>
     `;
     card.onclick = () => openFullscreen(item);
-    scroll.appendChild(card);
+    grid.appendChild(card);
   });
 }
 
-// ── CLOSE FULLSCREEN on backdrop click ──
-document.getElementById('fullscreen').addEventListener('click', function(e) {
-  if (e.target === this) closeFullscreen();
-});
-
-// ── CLOSE on ESC ──
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeFullscreen();
-});
+// ── ESC to close ──
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFullscreen(); });
 
 // ── SEARCH ──
 document.getElementById('searchInput').addEventListener('input', function() {
