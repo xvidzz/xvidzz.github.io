@@ -311,7 +311,7 @@ function handleSearch() {
   sugBox.innerHTML = items.map((it, idx) => `
     <div class="sug-item" onclick="applySuggestion(${idx})">
       <span>${it.label}</span>
-      <span class="sug-tag ${it.type === 'cat' ? 'cat' : it.type === 'model' ? 'model' : 'cat'}">${it.type === 'both' ? 'model + kategória' : it.type === 'model' ? 'modelka' : 'kategória'}</span>
+      <span class="sug-tag ${it.type === 'cat' ? 'cat' : it.type === 'Model' ? 'Model' : 'cat'}">${it.type === 'both' ? 'Model + Category' : it.type === 'Model' ? 'Model' : 'Category'}</span>
     </div>
   `).join('');
   sugBox._items = items;
