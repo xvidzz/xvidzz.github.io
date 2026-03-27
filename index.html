@@ -6,50 +6,75 @@
 <title>Xvidzz</title>
 <link rel="icon" href="pictures/logo.png" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-height: 100vh; overflow-x: hidden; }
-.header { display: flex; align-items: center; justify-content: space-between; background: #111; padding: 10px 20px; position: fixed; width: 100%; z-index: 1000; top: 0; }
-.logo { font-size: 26px; font-weight: 800; }
+
+.header { display: flex; align-items: center; justify-content: space-between; background: #111; padding: 10px 20px; position: fixed; width: 100%; z-index: 1000; top: 0; gap: 12px; }
+.logo { font-size: 26px; font-weight: 800; white-space: nowrap; }
 .logo span { background: orange; color: black; padding: 2px 6px; border-radius: 4px; }
 .search { flex: 1; display: flex; justify-content: center; }
-.search input { width: 100%; max-width: 400px; padding: 10px; border-radius: 25px; border: none; background: #1c1c1c; color: white; outline: none; font-family: 'Inter', sans-serif; font-size: 14px; }
+.search input { width: 100%; max-width: 400px; padding: 10px 16px; border-radius: 25px; border: none; background: #1c1c1c; color: white; outline: none; font-family: 'Inter', sans-serif; font-size: 14px; }
+
 .banner { width: 100%; text-align: center; padding: 5px 0; overflow: hidden; }
 .banner-top { margin-top: 60px; }
+
 .tabs { display: flex; background: #111; border-bottom: 2px solid #1e1e1e; position: sticky; top: 60px; z-index: 100; }
 .tab-btn { flex: 1; padding: 12px 8px; text-align: center; font-size: 13px; font-weight: 700; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.15s; user-select: none; text-transform: uppercase; letter-spacing: 0.5px; }
 .tab-btn:hover { color: #fff; }
 .tab-btn.active { color: orange; border-bottom-color: orange; }
-.categories { display: flex; gap: 8px; padding: 10px 14px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+
+.categories { display: flex; gap: 8px; padding: 10px 14px; overflow-x: auto; scrollbar-width: none; }
 .categories::-webkit-scrollbar { display: none; }
 .pill { flex-shrink: 0; padding: 6px 16px; border-radius: 999px; border: 1px solid #2a2a2a; background: #111; color: #888; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; user-select: none; }
 .pill:hover, .pill.active { background: orange; color: #000; border-color: orange; }
+
+/* search suggestions */
+.search-wrap { position: relative; flex: 1; display: flex; justify-content: center; }
+.suggestions { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); width: 100%; max-width: 400px; background: #1c1c1c; border-radius: 14px; overflow: hidden; z-index: 2000; box-shadow: 0 8px 24px rgba(0,0,0,0.6); display: none; }
+.suggestions.open { display: block; }
+.sug-item { padding: 10px 16px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 10px; }
+.sug-item:hover { background: #2a2a2a; }
+.sug-tag { font-size: 11px; background: #333; color: #aaa; padding: 2px 8px; border-radius: 99px; }
+.sug-tag.cat { background: #2a1a00; color: orange; }
+.sug-tag.model { background: #001a2a; color: #5bf; }
+
 .gallery-label { padding: 4px 14px 6px; font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
 .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 0 10px 10px; }
 @media (min-width: 480px)  { .gallery { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 768px)  { .gallery { grid-template-columns: repeat(4, 1fr); } }
 @media (min-width: 1024px) { .gallery { grid-template-columns: repeat(5, 1fr); } }
+
 .card { background: #111; border-radius: 10px; overflow: hidden; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .card:active { opacity: 0.8; }
 .card-img-wrap { position: relative; padding-top: 130%; overflow: hidden; }
 .card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-.card-title { display: none; }
+.card-title { font-size: 12px; padding: 4px 8px 6px; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
 .models-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
 @media (min-width: 480px) { .models-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 768px) { .models-grid { grid-template-columns: repeat(4, 1fr); } }
-.model-card { background: #111; border-radius: 12px; overflow: hidden; cursor: pointer; -webkit-tap-highlight-color: transparent; border: 2px solid transparent; transition: border-color 0.15s; }
+.model-card { background: #111; border-radius: 12px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: border-color 0.15s; }
 .model-card:hover { border-color: orange; }
 .model-card-img-wrap { position: relative; padding-top: 120%; overflow: hidden; }
 .model-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-.model-card-name { font-size: 14px; font-weight: 700; padding: 8px 10px 5px; color: #fff; }
+.model-card-name { font-size: 14px; font-weight: 700; padding: 8px 10px 4px; color: #fff; }
 .model-card-count { font-size: 11px; padding: 0 10px 8px; color: #888; }
+
 .back-bar { display: none; align-items: center; gap: 10px; padding: 10px 14px; background: #111; border-bottom: 1px solid #1e1e1e; cursor: pointer; }
 .back-bar.visible { display: flex; }
-.back-bar svg { width: 18px; height: 18px; fill: orange; flex-shrink: 0; }
+.back-bar svg { width: 18px; height: 18px; fill: orange; }
 .back-bar span { font-size: 14px; font-weight: 600; color: orange; }
+
+/* active filters chips */
+.active-filters { display: flex; gap: 6px; padding: 6px 14px; flex-wrap: wrap; }
+.filter-chip { display: flex; align-items: center; gap: 6px; background: #1c1c1c; border: 1px solid #333; border-radius: 99px; padding: 4px 10px 4px 12px; font-size: 12px; color: #ccc; }
+.filter-chip .x { cursor: pointer; color: #888; font-size: 15px; line-height: 1; }
+.filter-chip .x:hover { color: orange; }
+
 .sentinel { height: 40px; }
 .nothing { color: #aaa; font-size: 16px; text-align: center; grid-column: 1 / -1; padding: 60px 0; }
+
 .fullscreen { position: fixed; top: 60px; left: 0; width: 100%; height: calc(100% - 60px); background: #000; display: none; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch; z-index: 999; }
 .fullscreen.open { display: flex; }
 .fs-img-area { width: 100%; height: calc(100vh - 60px); flex-shrink: 0; position: relative; background: #000; display: flex; align-items: center; justify-content: center; }
@@ -58,7 +83,7 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 .fs-title-bar { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 30px 14px 14px; font-size: 15px; font-weight: 600; pointer-events: none; }
 .fs-scroll-hint { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 3px; color: rgba(255,255,255,0.5); font-size: 11px; pointer-events: none; animation: bounce 1.6s infinite; }
 .fs-scroll-hint svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.5); }
-@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(5px); } }
+@keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(5px); } }
 .related-section { background: #111; padding: 14px 12px 30px; border-top: 1px solid #1e1e1e; flex-shrink: 0; }
 .related-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 10px; }
 .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
@@ -84,11 +109,10 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 </div>
 
 <div class="header">
-  <div style="display:flex;align-items:center;gap:15px;">
-    <div class="logo">X<span>vidzz</span></div>
-  </div>
-  <div class="search">
-    <input type="text" id="searchInput" placeholder="Search Xvidzz">
+  <div class="logo">X<span>vidzz</span></div>
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="Search: cosplay, lela, lela bikiny...">
+    <div class="suggestions" id="suggestions"></div>
   </div>
 </div>
 
@@ -107,6 +131,7 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
   <span id="backLabel">Back</span>
 </div>
 
+<div class="active-filters" id="activeFilters"></div>
 <div class="categories" id="categoryPills"></div>
 <div class="gallery-label" id="galleryLabel"></div>
 <div class="gallery" id="gallery"></div>
@@ -134,7 +159,6 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 </div>
 
 <script>
-// ── IG DETECTION ──
 (function() {
   const ua = navigator.userAgent || '';
   if (ua.includes('Instagram') || ua.includes('FBAN') || ua.includes('FBAV'))
@@ -142,79 +166,220 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 })();
 
 // ══════════════════════════════════════════════════════
-//  OBRAZKY — pridaj sem svoje, title je volitelne
-//  Format nazvu suboru: img(1).png, img(2).png ...
-//  Priklad:
-//    { img: "pictures/tits/img(1).png", category: "tits", model: "lela_sohna", link: "..." },
-// ══════════════════════════════════════════════════════
-const images = [
-
-  // ── TITS ──
-  { img: "pictures/tits/img(1).png",  category: "tits",    link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img (2).png",  category: "tits",   model: "lela_sohna",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img (3).png",  category: "tits",   model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img (4).png",  category: "tits",   model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img (5).png",  category: "tits",   model: "lela_sohna",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img (6).png",  category: "tits",   model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img (7).png",  category: "tits",   model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img (8).png",  category: "tits",   model: "lela_sohna",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img (9).png",  category: "tits",   model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img (10).png",  category: "tits",   model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img (11).png",  category: "tits",   model: "lela_sohna",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img (12).png",  category: "tits",   model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img (13).png",  category: "tits",   model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img (14).png",  category: "tits",   model: "lela_sohna",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/tits/img (15).png",  category: "tits",   model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-
-  // ── ASS ──
-  { img: "pictures/ass/img (1).png",   category: "ass",    model: "lela_sohna",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/ass/img (2).png",   category: "ass",    model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-   { img: "pictures/ass/img (3).png",   category: "ass",    model: "lela_sohna",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-   { img: "pictures/ass/img (4).png",   category: "ass",    model: "lela_sohna",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-   { img: "pictures/ass/img (5).png",   category: "ass",    model: "lela_sohna",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-   { img: "pictures/ass/img (6).png",   category: "ass",    model: "lela_sohna",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-   { img: "pictures/ass/img (7).png",   category: "ass",    model: "lela_sohna",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  // ── COSPLAY ──
-  { img: "pictures/cosplay/img (1).png", category: "cosplay", model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/cosplay/img (2).png", category: "cosplay", model: "lela_sohna",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-   { img: "pictures/cosplay/img (3).png", category: "cosplay", model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/cosplay/img (4).png", category: "cosplay", model: "lela_sohna",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-   { img: "pictures/cosplay/img (5).png", category: "cosplay", model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/cosplay/img (6).png", category: "cosplay", model: "lela_sohna",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-
-
-  // ── BIKINY ──
-  { img: "pictures/bikiny/img (1).png",  category: "bikiny",  model: "anna_nova",  link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-  { img: "pictures/bikiny/img (2).png",  category: "bikiny",  model: "lela_sohna", link: "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de" },
-
-  // ── sem pridaj dalsie ──
-];
-
-// ══════════════════════════════════════════════════════
-//  MODELKY — cover = titulna fotka
+//  MODELKY — slug, zobrazovane meno, cover fotka
+//
+//  slug    = nazov foldra modelky (presne ako na disku)
+//  cover   = pic/models/{slug}/{category}/img (1).png
+//            — moze byt lubovolna fotka z jej priecinka
 // ══════════════════════════════════════════════════════
 const models = [
-  { slug: "lela_sohna", name: "Lela Sohna", cover: "pictures/models/lela_sohna/cover.png" },
-  { slug: "anna_nova",  name: "Anna Nova",  cover: "pictures/models/anna_nova/cover.jpg"  },
-  // sem pridaj dalsie modelky
+  { slug: "lela_sohna", name: "Lela Sohna", cover: "pic/models/lela_sohna/bikiny/img (1).png" },
+  { slug: "anna_nova",  name: "Anna Nova",  cover: "pic/models/anna_nova/bikiny/img (1).png"  },
+  // -- sem pridaj dalsie modelky --
 ];
 
-// ── STATE ──
-let activeTab = 'categories', activeCategory = 'all', activeModel = null;
-let searchQuery = '', currentData = [], renderedCount = 0;
-const PAGE_SIZE = 12;
+// ══════════════════════════════════════════════════════
+//  OBRAZKY
+//
+//  Struktura suborov na disku:
+//    pic/models/lela_sohna/bikiny/img (1).png
+//    pic/models/lela_sohna/bikiny/img (2).png
+//    pic/models/lela_sohna/tits/img (1).png
+//    pic/models/anna_nova/bikiny/img (1).png
+//    pic/general/bikiny/img (1).png   ← fotky bez modelky
+//
+//  add(slug, category, od, do)
+//    → generuje cestu pic/models/{slug}/{category}/img (N).png
+//
+//  addGeneral(category, od, do)
+//    → generuje cestu pic/general/{category}/img (N).png
+//
+//  POZOR: "od" a "do" musia sediet s pocetom fotiek vo foldri!
+//         Browser nevie sam citat obsah foldra.
+// ══════════════════════════════════════════════════════
+const LINK = "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de";
+const images = [];
 
-// ── Pomocna funkcia: ziskaj titulok z cesty suboru ──
-function titleFromPath(path) {
-  // "pictures/tits/img(3).png" → "Img (3)"
-  const file = path.split('/').pop().replace(/\.[^.]+$/, ''); // bez pripony
-  return file.replace(/([a-zA-Z]+)\((\d+)\)/, '$1 ($2)').replace(/_/g, ' ');
+function add(modelSlug, category, od, do_) {
+  for (let i = od; i <= do_; i++) {
+    images.push({
+      img: `pic/models/${modelSlug}/${category}/img (${i}).png`,
+      category,
+      model: modelSlug,
+      link: LINK
+    });
+  }
 }
 
-// ── TAB SWITCHING ──
+function addGeneral(category, od, do_) {
+  for (let i = od; i <= do_; i++) {
+    images.push({
+      img: `pic/general/${category}/img (${i}).png`,
+      category,
+      model: "unknown",
+      link: LINK
+    });
+  }
+}
+
+// ── SEM PRIDAVAJ / MENAS LEN CISLA ──────────────────
+// Lela Sohna
+add("lela_sohna", "bikiny",  1, 15);
+add("lela_sohna", "tits",    1, 10);
+add("lela_sohna", "cosplay", 1,  5);
+
+// Anna Nova
+add("anna_nova",  "bikiny",  1, 20);
+add("anna_nova",  "ass",     1, 12);
+
+// Bez modelky / general
+addGeneral("bikiny",  1, 5);
+addGeneral("cosplay", 1, 3);
+// ────────────────────────────────────────────────────
+
+// ══════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════
+let activeTab      = 'categories';
+let activeCategory = 'all';
+let activeModel    = null;
+let searchModel    = null;
+let searchCategory = null;
+let searchRaw      = '';
+let currentData    = [];
+let renderedCount  = 0;
+const PAGE_SIZE    = 12;
+
+// ══════════════════════════════════════════════════════
+//  SEARCH — suggestions + smart filter
+// ══════════════════════════════════════════════════════
+const searchInput = document.getElementById('searchInput');
+const sugBox      = document.getElementById('suggestions');
+
+searchInput.addEventListener('input', handleSearch);
+searchInput.addEventListener('focus', handleSearch);
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-wrap')) sugBox.classList.remove('open');
+});
+
+function handleSearch() {
+  const raw = searchInput.value.trim().toLowerCase();
+  searchRaw = raw;
+
+  if (!raw) {
+    sugBox.classList.remove('open');
+    searchModel = null; searchCategory = null;
+    if (activeTab === 'categories') resetGallery();
+    return;
+  }
+
+  const cats  = [...new Set(images.map(i => i.category))];
+  const words = raw.split(/\s+/);
+
+  let matchedCat   = null;
+  let matchedModel = null;
+
+  cats.forEach(c => { if (words.some(w => c.includes(w) || w.includes(c))) matchedCat = c; });
+
+  models.forEach(m => {
+    const nameWords = m.name.toLowerCase().split(' ');
+    const slugWords = m.slug.toLowerCase().split('_');
+    const allWords  = [...nameWords, ...slugWords];
+    if (words.some(w => allWords.some(mw => mw.startsWith(w) || w.startsWith(mw)))) {
+      matchedModel = m.slug;
+    }
+  });
+
+  const items = [];
+  if (matchedModel && matchedCat) {
+    const m = models.find(x => x.slug === matchedModel);
+    items.push({ label: `${m.name} + ${matchedCat}`, type: 'both', model: matchedModel, cat: matchedCat });
+  }
+  if (matchedModel) {
+    const m = models.find(x => x.slug === matchedModel);
+    items.push({ label: m.name, type: 'model', model: matchedModel, cat: null });
+  }
+  if (matchedCat) {
+    items.push({ label: matchedCat.charAt(0).toUpperCase() + matchedCat.slice(1), type: 'cat', model: null, cat: matchedCat });
+  }
+
+  if (items.length === 0) {
+    sugBox.classList.remove('open');
+    searchModel = null; searchCategory = null;
+    if (activeTab === 'categories') resetGallery();
+    return;
+  }
+
+  sugBox.innerHTML = items.map((it, idx) => `
+    <div class="sug-item" onclick="applySuggestion(${idx})">
+      <span>${it.label}</span>
+      <span class="sug-tag ${it.type === 'cat' ? 'cat' : it.type === 'model' ? 'model' : 'cat'}">${it.type === 'both' ? 'model + kategória' : it.type === 'model' ? 'modelka' : 'kategória'}</span>
+    </div>
+  `).join('');
+  sugBox._items = items;
+  sugBox.classList.add('open');
+}
+
+function applySuggestion(idx) {
+  const it = sugBox._items[idx];
+  searchModel    = it.model;
+  searchCategory = it.cat;
+  searchRaw      = '';
+  searchInput.value = '';
+  sugBox.classList.remove('open');
+
+  activeTab = 'categories';
+  activeModel = null;
+  document.getElementById('tabCategories').classList.add('active');
+  document.getElementById('tabModels').classList.remove('active');
+  document.getElementById('categoryPills').style.display = 'flex';
+  document.getElementById('gallery').style.display       = 'grid';
+  document.getElementById('sentinel').style.display      = 'block';
+  document.getElementById('modelsGrid').style.display    = 'none';
+  hideBackBar();
+
+  if (searchCategory) {
+    activeCategory = searchCategory;
+    document.querySelectorAll('.pill').forEach(p => {
+      p.classList.toggle('active', p.dataset.cat === searchCategory);
+    });
+  } else {
+    activeCategory = 'all';
+    document.querySelectorAll('.pill').forEach(p => {
+      p.classList.toggle('active', p.dataset.cat === 'all');
+    });
+  }
+
+  renderActiveFilters();
+  resetGallery();
+}
+
+function renderActiveFilters() {
+  const wrap = document.getElementById('activeFilters');
+  wrap.innerHTML = '';
+  if (searchModel) {
+    const m = models.find(x => x.slug === searchModel);
+    const chip = document.createElement('div');
+    chip.className = 'filter-chip';
+    chip.innerHTML = `👤 ${m ? m.name : searchModel} <span class="x" onclick="clearSearchModel()">×</span>`;
+    wrap.appendChild(chip);
+  }
+}
+
+function clearSearchModel() {
+  searchModel = null;
+  renderActiveFilters();
+  resetGallery();
+}
+
+// ══════════════════════════════════════════════════════
+//  TAB SWITCHING
+// ══════════════════════════════════════════════════════
 function switchTab(tab) {
-  activeTab = tab; activeModel = null; activeCategory = 'all'; searchQuery = '';
-  document.getElementById('searchInput').value = '';
+  activeTab = tab; activeModel = null; activeCategory = 'all';
+  searchModel = null; searchCategory = null; searchRaw = '';
+  searchInput.value = '';
+  document.getElementById('activeFilters').innerHTML = '';
   document.getElementById('tabCategories').classList.toggle('active', tab === 'categories');
   document.getElementById('tabModels').classList.toggle('active', tab === 'models');
   document.getElementById('categoryPills').style.display = tab === 'categories' ? 'flex' : 'none';
@@ -248,24 +413,27 @@ function buildCategories() {
   cats.forEach(cat => {
     const pill = document.createElement('div');
     pill.className = 'pill' + (cat === activeCategory ? ' active' : '');
+    pill.dataset.cat = cat;
     pill.textContent = cat === 'all' ? 'All' : cat.charAt(0).toUpperCase() + cat.slice(1);
     pill.onclick = () => {
       document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-      pill.classList.add('active'); activeCategory = cat; resetGallery();
+      pill.classList.add('active');
+      activeCategory = cat;
+      resetGallery();
     };
     pills.appendChild(pill);
   });
 }
 
-// ── FILTER — title je volitelny, nekrashuje ak chyba ──
+// ── FILTER ──
 function getFiltered() {
-  const q = searchQuery;
   return images.filter(img => {
     const matchCat   = activeCategory === 'all' || img.category === activeCategory;
-    const matchModel = activeModel === null || img.model === activeModel;
-    const t = (img.title || titleFromPath(img.img)).toLowerCase();
-    const matchSearch = !q || t.includes(q);
-    return matchCat && matchModel && matchSearch;
+    const matchModel = (activeModel === null && searchModel === null)
+                     || (activeModel && img.model === activeModel)
+                     || (searchModel && img.model === searchModel);
+    const matchSCat  = !searchCategory || img.category === searchCategory;
+    return matchCat && matchModel && matchSCat;
   });
 }
 
@@ -274,11 +442,15 @@ function resetGallery() {
   document.getElementById('gallery').innerHTML = '';
   const total = currentData.length;
   const label = document.getElementById('galleryLabel');
-  if (activeModel) {
-    const m = models.find(x => x.slug === activeModel);
-    label.textContent = `${m ? m.name : activeModel} — ${total} photo${total !== 1 ? 's' : ''}`;
-  } else if (searchQuery) {
-    label.textContent = `Results for "${searchQuery}" — ${total}`;
+  const mName = activeModel
+    ? (models.find(x => x.slug === activeModel)?.name || activeModel)
+    : searchModel
+    ? (models.find(x => x.slug === searchModel)?.name || searchModel)
+    : null;
+  if (mName && activeCategory !== 'all') {
+    label.textContent = `${mName} · ${activeCategory} — ${total}`;
+  } else if (mName) {
+    label.textContent = `${mName} — ${total} photo${total !== 1 ? 's' : ''}`;
   } else if (activeCategory !== 'all') {
     label.textContent = `${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} — ${total}`;
   } else {
@@ -287,16 +459,15 @@ function resetGallery() {
   loadNextBatch();
 }
 
+function titleFromImg(img) {
+  const m = models.find(x => x.slug === img.model);
+  return m ? m.name : img.category || '';
+}
+
 function renderCard(data) {
-  const title = data.title || titleFromPath(data.img);
-  const div = document.createElement('div');
-  div.className = 'card';
-  div.innerHTML = `
-    <div class="card-img-wrap">
-      <img src="${data.img}" alt="${title}" loading="lazy">
-    </div>
-    <div class="card-title">${title}</div>
-  `;
+  const title = titleFromImg(data);
+  const div = document.createElement('div'); div.className = 'card';
+  div.innerHTML = `<div class="card-img-wrap"><img src="${data.img}" alt="${title}" loading="lazy"></div><div class="card-title">${title}</div>`;
   div.onclick = () => openFullscreen(data);
   return div;
 }
@@ -316,17 +487,13 @@ const observer = new IntersectionObserver(entries => {
 }, { rootMargin: '200px' });
 observer.observe(document.getElementById('sentinel'));
 
-// ── MODELS ──
+// ── MODELS TAB ──
 function buildModelsGrid() {
   const grid = document.getElementById('modelsGrid'); grid.innerHTML = '';
   models.forEach(model => {
     const count = images.filter(i => i.model === model.slug).length;
     const card = document.createElement('div'); card.className = 'model-card';
-    card.innerHTML = `
-      <div class="model-card-img-wrap"><img src="${model.cover}" alt="${model.name}" loading="lazy"></div>
-      <div class="model-card-name">${model.name}</div>
-      <div class="model-card-count">${count} photo${count !== 1 ? 's' : ''}</div>
-    `;
+    card.innerHTML = `<div class="model-card-img-wrap"><img src="${model.cover}" alt="${model.name}" loading="lazy"></div><div class="model-card-name">${model.name}</div><div class="model-card-count">${count} photo${count !== 1 ? 's' : ''}</div>`;
     card.onclick = () => openModelGallery(model);
     grid.appendChild(card);
   });
@@ -343,7 +510,8 @@ function openModelGallery(model) {
 
 // ── FULLSCREEN ──
 function openFullscreen(data) {
-  const title = data.title || titleFromPath(data.img);
+  const m = models.find(x => x.slug === data.model);
+  const title = m ? `${m.name} · ${data.category}` : data.category;
   document.getElementById('fsImg').src = data.img;
   document.getElementById('fsTitleBar').textContent = title;
   buildRelated(data);
@@ -352,39 +520,24 @@ function openFullscreen(data) {
   document.body.style.overflow = 'hidden';
   window.open(data.link, '_blank');
 }
-
 function closeFullscreen() {
   document.getElementById('fullscreen').classList.remove('open');
-  document.body.style.overflow = '';
-  document.getElementById('fsImg').src = '';
+  document.body.style.overflow = ''; document.getElementById('fsImg').src = '';
 }
-
 function buildRelated(data) {
   const grid = document.getElementById('relatedGrid'); grid.innerHTML = '';
-  const related = images.filter(img =>
-    img !== data && (img.category === data.category || img.model === data.model)
-  ).slice(0, 18);
-  if (related.length === 0) {
-    grid.innerHTML = '<div style="color:#666;font-size:13px;padding:8px 0;grid-column:1/-1;">No related photos</div>'; return;
-  }
+  const related = images.filter(img => img !== data && (img.category === data.category || img.model === data.model)).slice(0, 18);
+  if (!related.length) { grid.innerHTML = '<div style="color:#666;font-size:13px;padding:8px 0;grid-column:1/-1;">No related photos</div>'; return; }
   related.forEach(item => {
-    const t = item.title || titleFromPath(item.img);
+    const t = titleFromImg(item);
     const card = document.createElement('div'); card.className = 'related-card';
-    card.innerHTML = `
-      <div class="related-card-img-wrap"><img src="${item.img}" alt="${t}" loading="lazy"></div>
-      <div class="related-card-title">${t}</div>
-    `;
+    card.innerHTML = `<div class="related-card-img-wrap"><img src="${item.img}" alt="${t}" loading="lazy"></div><div class="related-card-title">${t}</div>`;
     card.onclick = () => openFullscreen(item);
     grid.appendChild(card);
   });
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFullscreen(); });
-
-document.getElementById('searchInput').addEventListener('input', function() {
-  searchQuery = this.value.toLowerCase().trim();
-  if (activeTab === 'categories') resetGallery();
-});
 
 switchTab('categories');
 </script>
