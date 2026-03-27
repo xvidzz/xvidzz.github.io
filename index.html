@@ -631,7 +631,7 @@ function openModelGallery(model) {
   document.getElementById('modelsGrid').style.display = 'none';
   document.getElementById('gallery').style.display    = 'grid';
   document.getElementById('sentinel').style.display   = 'block';
-  showBackBar(`← ${model.name}`);
+  showBackBar(`${model.name}`);
   resetGallery();
 }
 
