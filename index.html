@@ -211,16 +211,7 @@ function add(modelSlug, category, od, do_) {
   }
 }
 
-function addGeneral(category, od, do_) {
-  for (let i = od; i <= do_; i++) {
-    images.push({
-      img: `picture/general/${category}/img (${i}).png`,
-      category,
-      model: "unknown",
-      link: LINK
-    });
-  }
-}
+
 
 // ── SEM PRIDAVAJ / MENAS LEN CISLA ──────────────────
 // Lela Sohna
@@ -233,9 +224,7 @@ add("lela_sohna",  "ass",     1, 7);
 add("anna_nova",  "bikiny",  1, 20);
 add("anna_nova",  "ass",     1, 12);
 
-// Bez modelky / general
-addGeneral("bikiny",  1, 5);
-addGeneral("cosplay", 1, 3);
+
 // ────────────────────────────────────────────────────
 
 // ══════════════════════════════════════════════════════
