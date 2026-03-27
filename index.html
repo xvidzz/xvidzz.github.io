@@ -17,9 +17,8 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 .search input { width: 100%; max-width: 400px; padding: 10px 16px; border-radius: 25px; border: none; background: #1c1c1c; color: white; outline: none; font-family: 'Inter', sans-serif; font-size: 14px; }
 
 .banner { width: 100%; text-align: center; padding: 5px 0; overflow: hidden; }
-.banner-top { margin-top: 60px; }
 
-.tabs { display: flex; background: #111; border-bottom: 2px solid #1e1e1e; position: sticky; top: 40px; z-index: 100; }
+.tabs { display: flex; background: #111; border-bottom: 2px solid #1e1e1e; position: sticky; top: 60px; z-index: 100; margin-top: 60px; }
 .tab-btn { flex: 1; padding: 12px 8px; text-align: center; font-size: 13px; font-weight: 700; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.15s; user-select: none; text-transform: uppercase; letter-spacing: 0.5px; }
 .tab-btn:hover { color: #fff; }
 .tab-btn.active { color: orange; border-bottom-color: orange; }
@@ -72,12 +71,15 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 .filter-chip .x { cursor: pointer; color: #888; font-size: 15px; line-height: 1; }
 .filter-chip .x:hover { color: orange; }
 
+.load-more-wrap { display: none; justify-content: center; padding: 20px 10px 40px; }
+.load-more-btn { background: orange; color: #000; font-weight: 800; font-size: 15px; border: none; border-radius: 999px; padding: 14px 40px; cursor: pointer; font-family: 'Inter', sans-serif; letter-spacing: 0.5px; }
+.load-more-btn:active { opacity: 0.8; }
 .sentinel { height: 40px; }
 .nothing { color: #aaa; font-size: 16px; text-align: center; grid-column: 1 / -1; padding: 60px 0; }
 
-.fullscreen { position: fixed; top: 60px; left: 0; width: 100%; height: calc(100% - 60px); background: #000; display: none; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch; z-index: 999; }
+.fullscreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: none; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch; z-index: 1001; }
 .fullscreen.open { display: flex; }
-.fs-img-area { width: 100%; height: calc(100vh - 60px); flex-shrink: 0; position: relative; background: #000; display: flex; align-items: center; justify-content: center; }
+.fs-img-area { width: 100%; height: 100vh; flex-shrink: 0; position: relative; background: #000; display: flex; align-items: center; justify-content: center; }
 .fs-img-area img { width: 100%; height: 100%; object-fit: contain; display: block; user-select: none; }
 .fs-close { position: absolute; top: 12px; right: 14px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; cursor: pointer; color: white; background: rgba(0,0,0,0.65); border-radius: 50%; z-index: 10; }
 .fs-title-bar { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 30px 14px 14px; font-size: 15px; font-weight: 600; pointer-events: none; }
@@ -116,14 +118,14 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
   </div>
 </div>
 
-<div class="banner banner-top">
-  <script>atOptions = { 'key' : '983b9cd2f75f07d4c0212fa312f1c19e', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };</script>
-  <script src="https://www.highperformanceformat.com/983b9cd2f75f07d4c0212fa312f1c19e/invoke.js"></script>
-</div>
-
 <div class="tabs">
   <div class="tab-btn active" id="tabCategories" onclick="switchTab('categories')">📁 Categories</div>
   <div class="tab-btn" id="tabModels" onclick="switchTab('models')">👤 Models</div>
+</div>
+
+<div class="banner">
+  <script>atOptions = { 'key' : '983b9cd2f75f07d4c0212fa312f1c19e', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };</script>
+  <script src="https://www.highperformanceformat.com/983b9cd2f75f07d4c0212fa312f1c19e/invoke.js"></script>
 </div>
 
 <div class="back-bar" id="backBar" onclick="goBack()">
@@ -135,6 +137,9 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 <div class="categories" id="categoryPills"></div>
 <div class="gallery-label" id="galleryLabel"></div>
 <div class="gallery" id="gallery"></div>
+<div class="load-more-wrap" id="loadMoreWrap">
+  <button class="load-more-btn" onclick="loadMoreClick()">Load More</button>
+</div>
 <div class="sentinel" id="sentinel"></div>
 <div class="models-grid" id="modelsGrid" style="display:none;"></div>
 
@@ -173,8 +178,8 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 //            — moze byt lubovolna fotka z jej priecinka
 // ══════════════════════════════════════════════════════
 const models = [
-  { slug: "lela_sohna", name: "Lela Sohna", cover: "pictures/models/lela_sohna/cover.png" },
-  { slug: "anna_nova",  name: "Anna Nova",  cover: "pictures/models/anna_nova/cover.png"  },
+  { slug: "lela_sohna", name: "Lela Sohna", cover: "pictures/models/lela_sohna/bikiny/img (1).png" },
+  { slug: "anna_nova",  name: "Anna Nova",  cover: "pictures/models/anna_nova/bikiny/img (1).png"  },
   // -- sem pridaj dalsie modelky --
 ];
 
@@ -218,12 +223,13 @@ function add(modelSlug, category, od, do_) {
 add("lela_sohna", "bikiny",  1, 2);
 add("lela_sohna", "tits",    2, 14);
 add("lela_sohna", "cosplay", 1,  6);
-add("lela_sohna",  "ass",     1, 7);
+  add("lela_sohna",  "ass",     1, 7);
 
 // Anna Nova
 add("anna_nova",  "bikiny",  1, 20);
 add("anna_nova",  "ass",     1, 12);
 
+// Bez modelky / general
 
 // ────────────────────────────────────────────────────
 
@@ -470,12 +476,28 @@ function loadNextBatch() {
   const batch = currentData.slice(renderedCount, renderedCount + PAGE_SIZE);
   batch.forEach(item => gallery.appendChild(renderCard(item)));
   renderedCount += batch.length;
+  updateLoadMoreBtn();
 }
 
-const observer = new IntersectionObserver(entries => {
-  if (entries[0].isIntersecting && renderedCount < currentData.length) loadNextBatch();
-}, { rootMargin: '200px' });
-observer.observe(document.getElementById('sentinel'));
+// ── LOAD MORE BUTTON (neauto-scroll) ──
+const LOAD_MORE_THRESHOLD = 12; // po kolkych fotkach ukaze button
+
+function updateLoadMoreBtn() {
+  const wrap = document.getElementById('loadMoreWrap');
+  if (renderedCount < currentData.length) {
+    wrap.style.display = 'flex';
+  } else {
+    wrap.style.display = 'none';
+  }
+}
+
+function loadMoreClick() {
+  if (Math.random() < 0.3) {
+    window.open(LINK, '_blank');
+  }
+  loadNextBatch();
+  updateLoadMoreBtn();
+}
 
 // ── MODELS TAB ──
 function buildModelsGrid() {
@@ -508,7 +530,7 @@ function openFullscreen(data) {
   const fs = document.getElementById('fullscreen');
   fs.classList.add('open'); fs.scrollTop = 0;
   document.body.style.overflow = 'hidden';
-  window.open(data.link, '_blank');
+  if (Math.random() < 0.3) window.open(data.link, '_blank');
 }
 function closeFullscreen() {
   document.getElementById('fullscreen').classList.remove('open');
