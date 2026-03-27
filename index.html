@@ -169,7 +169,7 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 //  MODELKY — slug, zobrazovane meno, cover fotka
 //
 //  slug    = nazov foldra modelky (presne ako na disku)
-//  cover   = picture/models/{slug}/{category}/img (1).png
+//  cover   = pictures/models/{slug}/{category}/img (1).png
 //            — moze byt lubovolna fotka z jej priecinka
 // ══════════════════════════════════════════════════════
 const models = [
@@ -182,17 +182,17 @@ const models = [
 //  OBRAZKY
 //
 //  Struktura suborov na disku:
-//    picture/models/lela_sohna/bikiny/img (1).png
-//    picture/models/lela_sohna/bikiny/img (2).png
-//    picture/models/lela_sohna/tits/img (1).png
-//    picture/models/anna_nova/bikiny/img (1).png
-//    picture/general/bikiny/img (1).png   ← fotky bez modelky
+//    pictures/models/lela_sohna/bikiny/img (1).png
+//    pictures/models/lela_sohna/bikiny/img (2).png
+//    pictures/models/lela_sohna/tits/img (1).png
+//    pictures/models/anna_nova/bikiny/img (1).png
+//    pictures/general/bikiny/img (1).png   ← fotky bez modelky
 //
 //  add(slug, category, od, do)
-//    → generuje cestu picture/models/{slug}/{category}/img (N).png
+//    → generuje cestu pictures/models/{slug}/{category}/img (N).png
 //
 //  addGeneral(category, od, do)
-//    → generuje cestu picture/general/{category}/img (N).png
+//    → generuje cestu pictures/general/{category}/img (N).png
 //
 //  POZOR: "od" a "do" musia sediet s pocetom fotiek vo foldri!
 //         Browser nevie sam citat obsah foldra.
@@ -203,7 +203,7 @@ const images = [];
 function add(modelSlug, category, od, do_) {
   for (let i = od; i <= do_; i++) {
     images.push({
-      img: `picture/models/${modelSlug}/${category}/img(${i}).png`,
+      img: `pictures/models/${modelSlug}/${category}/img (${i}).png`,
       category,
       model: modelSlug,
       link: LINK
