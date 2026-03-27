@@ -10,37 +10,34 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-height: 100vh; overflow-x: hidden; }
 
-.header { display: flex; align-items: center; justify-content: space-between; background: #111; padding: 10px 20px; position: fixed; width: 100%; z-index: 1000; top: 0; gap: 12px; }
+/* ── HEADER ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #111;
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  top: 0;
+  gap: 12px;
+}
 .logo { font-size: 26px; font-weight: 800; white-space: nowrap; }
 .logo span { background: orange; color: black; padding: 2px 6px; border-radius: 4px; }
-.search { flex: 1; display: flex; justify-content: center; }
-.search input { width: 100%; max-width: 400px; padding: 10px 16px; border-radius: 25px; border: none; background: #1c1c1c; color: white; outline: none; font-family: 'Inter', sans-serif; font-size: 14px; }
 
-.banner { width: 100%; text-align: center; padding: 5px 0; overflow: hidden; }
-
-.tabs { display: flex; background: #111; border-bottom: 2px solid #1e1e1e; position: sticky; top: 40px; z-index: 100; margin-top: 45px; }
-.tab-btn { flex: 1; padding: 12px 8px; text-align: center; font-size: 13px; font-weight: 700; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.15s; user-select: none; text-transform: uppercase; letter-spacing: 0.5px; }
-.tab-btn:hover { color: #fff; }
-.tab-btn.active { color: orange; border-bottom-color: orange; }
-
-.categories { display: flex; gap: 8px; padding: 10px 14px; overflow-x: auto; scrollbar-width: none; }
-.categories::-webkit-scrollbar { display: none; }
-.pill { flex-shrink: 0; padding: 6px 16px; border-radius: 999px; border: 1px solid #2a2a2a; background: #111; color: #888; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; user-select: none; }
-.pill:hover, .pill.active { background: orange; color: #000; border-color: orange; }
-
-/* search suggestions */
-<div class="search-wrap">
-  <div class="search-box">
-    <svg class="search-icon" viewBox="0 0 24 24">
-      <path d="M21 20l-5.6-5.6a7 7 0 10-1 1L20 21zM5 11a6 6 0 1112 0A6 6 0 015 11z"/>
-    </svg>
-    <input type="text" id="searchInput" placeholder="Search...">
-    <div class="suggestions" id="suggestions"></div>
-  </div>
-</div>
-
-.search-wrap { flex: 1; display: flex; justify-content: center; position: relative; }
-.search-box { position: relative; width: 100%; max-width: 420px; }
+/* ── SEARCH ── */
+.search-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.search-box {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+}
 .search-box input {
   width: 100%;
   padding: 10px 16px 10px 40px;
@@ -51,14 +48,34 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
   outline: none;
   font-size: 14px;
   font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s, background 0.2s;
 }
+.search-box input::placeholder { color: #666; }
 .search-box input:focus { border-color: #444; background: #222; }
 .search-icon {
-  position: absolute; top: 50%; left: 12px;
-  width: 18px; height: 18px; fill: #888;
-  transform: translateY(-50%); pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  width: 18px;
+  height: 18px;
+  fill: #888;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
-.suggestions { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); width: 100%; max-width: 400px; background: #1c1c1c; border-radius: 14px; overflow: hidden; z-index: 2000; box-shadow: 0 8px 24px rgba(0,0,0,0.6); display: none; }
+
+/* ── SUGGESTIONS ── */
+.suggestions {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  background: #1c1c1c;
+  border-radius: 14px;
+  overflow: hidden;
+  z-index: 2000;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  display: none;
+}
 .suggestions.open { display: block; }
 .sug-item { padding: 10px 16px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 10px; }
 .sug-item:hover { background: #2a2a2a; }
@@ -66,6 +83,61 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 .sug-tag.cat { background: #2a1a00; color: orange; }
 .sug-tag.model { background: #001a2a; color: #5bf; }
 
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  background: #111;
+  border-bottom: 2px solid #1e1e1e;
+  position: sticky;
+  top: 50px;
+  z-index: 100;
+  margin-top: 50px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 12px 8px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #666;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.15s;
+  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tab-btn:hover { color: #fff; }
+.tab-btn.active { color: orange; border-bottom-color: orange; }
+
+/* ── BANNER ── */
+.banner { width: 100%; text-align: center; padding: 5px 0; overflow: hidden; }
+
+/* ── CATEGORIES PILLS ── */
+.categories {
+  display: flex;
+  gap: 8px;
+  padding: 10px 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.categories::-webkit-scrollbar { display: none; }
+.pill {
+  flex-shrink: 0;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid #2a2a2a;
+  background: #111;
+  color: #888;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+.pill:hover, .pill.active { background: orange; color: #000; border-color: orange; }
+
+/* ── GALLERY ── */
 .gallery-label { padding: 4px 14px 6px; font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
 .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 0 10px 10px; }
 @media (min-width: 480px)  { .gallery { grid-template-columns: repeat(3, 1fr); } }
@@ -78,6 +150,7 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 .card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .card-title { font-size: 12px; padding: 4px 8px 6px; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+/* ── MODELS GRID ── */
 .models-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
 @media (min-width: 480px) { .models-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 768px) { .models-grid { grid-template-columns: repeat(4, 1fr); } }
@@ -88,23 +161,26 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 .model-card-name { font-size: 14px; font-weight: 700; padding: 8px 10px 4px; color: #fff; }
 .model-card-count { font-size: 11px; padding: 0 10px 8px; color: #888; }
 
+/* ── BACK BAR ── */
 .back-bar { display: none; align-items: center; gap: 10px; padding: 10px 14px; background: #111; border-bottom: 1px solid #1e1e1e; cursor: pointer; }
 .back-bar.visible { display: flex; }
 .back-bar svg { width: 18px; height: 18px; fill: orange; }
 .back-bar span { font-size: 14px; font-weight: 600; color: orange; }
 
-/* active filters chips */
+/* ── ACTIVE FILTER CHIPS ── */
 .active-filters { display: flex; gap: 6px; padding: 6px 14px; flex-wrap: wrap; }
 .filter-chip { display: flex; align-items: center; gap: 6px; background: #1c1c1c; border: 1px solid #333; border-radius: 99px; padding: 4px 10px 4px 12px; font-size: 12px; color: #ccc; }
 .filter-chip .x { cursor: pointer; color: #888; font-size: 15px; line-height: 1; }
 .filter-chip .x:hover { color: orange; }
 
+/* ── LOAD MORE ── */
 .load-more-wrap { display: none; justify-content: center; padding: 20px 10px 40px; }
 .load-more-btn { background: orange; color: #000; font-weight: 800; font-size: 15px; border: none; border-radius: 999px; padding: 14px 40px; cursor: pointer; font-family: 'Inter', sans-serif; letter-spacing: 0.5px; }
 .load-more-btn:active { opacity: 0.8; }
 .sentinel { height: 40px; }
 .nothing { color: #aaa; font-size: 16px; text-align: center; grid-column: 1 / -1; padding: 60px 0; }
 
+/* ── FULLSCREEN ── */
 .fullscreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: none; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch; z-index: 1001; }
 .fullscreen.open { display: flex; }
 .fs-img-area { width: 100%; height: 100vh; flex-shrink: 0; position: relative; background: #000; display: flex; align-items: center; justify-content: center; }
@@ -122,6 +198,8 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 .related-card-img-wrap { position: relative; padding-top: 130%; }
 .related-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .related-card-title { font-size: 11px; color: #aaa; padding: 4px 5px 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ── IG OVERLAY ── */
 .ig-overlay { position: fixed; inset: 0; background: #0b0b0b; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px; text-align: center; }
 .ig-icon { font-size: 56px; margin-bottom: 20px; }
 .ig-overlay h2 { font-size: 24px; font-weight: 800; margin-bottom: 12px; }
@@ -132,30 +210,40 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 </head>
 <body>
 
+<!-- Instagram overlay -->
 <div class="ig-overlay" id="igOverlay" style="display:none;">
   <div class="ig-icon">🌐</div>
   <h2>Open in Browser</h2>
   <p>Instagram's built-in browser blocks this site.<br><br>Tap the <strong>⋯ menu</strong> (top right corner)<br>then select <span class="ig-step">Open in external browser</span></p>
 </div>
 
+<!-- Header -->
 <div class="header">
   <div class="logo">X<span>vidzz</span></div>
   <div class="search-wrap">
-    <input type="text" id="searchInput" placeholder="Search: cosplay, lela, lela bikiny...">
-    <div class="suggestions" id="suggestions"></div>
+    <div class="search-box">
+      <svg class="search-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 20l-5.6-5.6a7 7 0 10-1 1L20 21zM5 11a6 6 0 1112 0A6 6 0 015 11z"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Search: cosplay, lela, lela bikiny...">
+      <div class="suggestions" id="suggestions"></div>
+    </div>
   </div>
 </div>
 
+<!-- Tabs -->
 <div class="tabs">
   <div class="tab-btn active" id="tabCategories" onclick="switchTab('categories')">📁 Categories</div>
   <div class="tab-btn" id="tabModels" onclick="switchTab('models')">👤 Models</div>
 </div>
 
+<!-- Banner -->
 <div class="banner">
   <script>atOptions = { 'key' : '983b9cd2f75f07d4c0212fa312f1c19e', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };</script>
   <script src="https://www.highperformanceformat.com/983b9cd2f75f07d4c0212fa312f1c19e/invoke.js"></script>
 </div>
 
+<!-- Back bar -->
 <div class="back-bar" id="backBar" onclick="goBack()">
   <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
   <span id="backLabel">Back</span>
@@ -173,10 +261,12 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
   <button class="load-more-btn" onclick="loadMoreClick()">Load More</button>
 </div>
 
+<!-- Banner 2 -->
 <div class="banner">
   <script src="https://pl28980273.profitablecpmratenetwork.com/18/b3/02/18b302cf47484bb230e4bff70f2b3c0c.js"></script>
 </div>
 
+<!-- Fullscreen viewer -->
 <div class="fullscreen" id="fullscreen">
   <div class="fs-img-area">
     <div class="fs-close" onclick="closeFullscreen()">×</div>
@@ -194,6 +284,7 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 </div>
 
 <script>
+// ── Instagram detection ──
 (function() {
   const ua = navigator.userAgent || '';
   if (ua.includes('Instagram') || ua.includes('FBAN') || ua.includes('FBAV'))
@@ -201,11 +292,7 @@ body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: white; min-
 })();
 
 // ══════════════════════════════════════════════════════
-//  MODELKY — slug, zobrazovane meno, cover fotka
-//
-//  slug    = nazov foldra modelky (presne ako na disku)
-//  cover   = pictures/models/{slug}/{category}/img (1).png
-//            — moze byt lubovolna fotka z jej priecinka
+//  MODELS
 // ══════════════════════════════════════════════════════
 const models = [
   { slug: "lela_sohna", name: "Lela Sohna", cover: "pictures/models/lela_sohna/bikiny/img (1).png" },
@@ -214,23 +301,7 @@ const models = [
 ];
 
 // ══════════════════════════════════════════════════════
-//  OBRAZKY
-//
-//  Struktura suborov na disku:
-//    pictures/models/lela_sohna/bikiny/img (1).png
-//    pictures/models/lela_sohna/bikiny/img (2).png
-//    pictures/models/lela_sohna/tits/img (1).png
-//    pictures/models/anna_nova/bikiny/img (1).png
-//    pictures/general/bikiny/img (1).png   ← fotky bez modelky
-//
-//  add(slug, category, od, do)
-//    → generuje cestu pictures/models/{slug}/{category}/img (N).png
-//
-//  addGeneral(category, od, do)
-//    → generuje cestu pictures/general/{category}/img (N).png
-//
-//  POZOR: "od" a "do" musia sediet s pocetom fotiek vo foldri!
-//         Browser nevie sam citat obsah foldra.
+//  IMAGES
 // ══════════════════════════════════════════════════════
 const LINK = "https://www.profitablecpmratenetwork.com/k8t6yfa427?key=cd32e922e02220f156f81429034a38de";
 const images = [];
@@ -246,21 +317,30 @@ function add(modelSlug, category, od, do_) {
   }
 }
 
+function addGeneral(category, od, do_) {
+  for (let i = od; i <= do_; i++) {
+    images.push({
+      img: `pictures/general/${category}/img (${i}).png`,
+      category,
+      model: null,
+      link: LINK
+    });
+  }
+}
 
-
-// ── SEM PRIDAVAJ / MENAS LEN CISLA ──────────────────
+// ── PRIDAVAJ / MENAS LEN CISLA ──────────────────
 // Lela Sohna
 add("lela_sohna", "bikiny",  1, 2);
 add("lela_sohna", "tits",    2, 14);
 add("lela_sohna", "cosplay", 1,  6);
-  add("lela_sohna",  "ass",     1, 7);
+add("lela_sohna", "ass",     1, 7);
 
 // Anna Nova
 add("anna_nova",  "bikiny",  1, 20);
 add("anna_nova",  "ass",     1, 12);
 
-// Bez modelky / general
-
+// General (bez modelky)
+// addGeneral("bikiny", 1, 10);
 // ────────────────────────────────────────────────────
 
 // ══════════════════════════════════════════════════════
@@ -277,7 +357,7 @@ let renderedCount  = 0;
 const PAGE_SIZE    = 12;
 
 // ══════════════════════════════════════════════════════
-//  SEARCH — suggestions + smart filter
+//  SEARCH
 // ══════════════════════════════════════════════════════
 const searchInput = document.getElementById('searchInput');
 const sugBox      = document.getElementById('suggestions');
@@ -285,7 +365,7 @@ const sugBox      = document.getElementById('suggestions');
 searchInput.addEventListener('input', handleSearch);
 searchInput.addEventListener('focus', handleSearch);
 document.addEventListener('click', e => {
-  if (!e.target.closest('.search-wrap')) sugBox.classList.remove('open');
+  if (!e.target.closest('.search-box')) sugBox.classList.remove('open');
 });
 
 function handleSearch() {
@@ -305,7 +385,9 @@ function handleSearch() {
   let matchedCat   = null;
   let matchedModel = null;
 
-  cats.forEach(c => { if (words.some(w => c.includes(w) || w.includes(c))) matchedCat = c; });
+  cats.forEach(c => {
+    if (words.some(w => c.includes(w) || w.includes(c))) matchedCat = c;
+  });
 
   models.forEach(m => {
     const nameWords = m.name.toLowerCase().split(' ');
@@ -339,7 +421,7 @@ function handleSearch() {
   sugBox.innerHTML = items.map((it, idx) => `
     <div class="sug-item" onclick="applySuggestion(${idx})">
       <span>${it.label}</span>
-      <span class="sug-tag ${it.type === 'cat' ? 'cat' : it.type === 'Model' ? 'Model' : 'cat'}">${it.type === 'both' ? 'Model + Category' : it.type === 'Model' ? 'Model' : 'Category'}</span>
+      <span class="sug-tag ${it.type === 'cat' ? 'cat' : 'model'}">${it.type === 'both' ? 'Model + Category' : it.type === 'model' ? 'Model' : 'Category'}</span>
     </div>
   `).join('');
   sugBox._items = items;
@@ -418,7 +500,10 @@ function switchTab(tab) {
 }
 
 // ── BACK ──
-function showBackBar(label) { document.getElementById('backBar').classList.add('visible'); document.getElementById('backLabel').textContent = label; }
+function showBackBar(label) {
+  document.getElementById('backBar').classList.add('visible');
+  document.getElementById('backLabel').textContent = label;
+}
 function hideBackBar() { document.getElementById('backBar').classList.remove('visible'); }
 function goBack() {
   if (activeModel !== null) {
@@ -427,7 +512,8 @@ function goBack() {
     document.getElementById('sentinel').style.display   = 'none';
     document.getElementById('modelsGrid').style.display = 'grid';
     document.getElementById('galleryLabel').textContent = '';
-    hideBackBar(); buildModelsGrid();
+    hideBackBar();
+    buildModelsGrid();
   }
 }
 
@@ -492,7 +578,8 @@ function titleFromImg(img) {
 
 function renderCard(data) {
   const title = titleFromImg(data);
-  const div = document.createElement('div'); div.className = 'card';
+  const div = document.createElement('div');
+  div.className = 'card';
   div.innerHTML = `<div class="card-img-wrap"><img src="${data.img}" alt="${title}" loading="lazy"></div><div class="card-title">${title}</div>`;
   div.onclick = () => openFullscreen(data);
   return div;
@@ -501,7 +588,11 @@ function renderCard(data) {
 function loadNextBatch() {
   const gallery = document.getElementById('gallery');
   if (currentData.length === 0 && renderedCount === 0) {
-    const msg = document.createElement('div'); msg.className = 'nothing'; msg.textContent = 'Nothing found'; gallery.appendChild(msg); return;
+    const msg = document.createElement('div');
+    msg.className = 'nothing';
+    msg.textContent = 'Nothing found';
+    gallery.appendChild(msg);
+    return;
   }
   const batch = currentData.slice(renderedCount, renderedCount + PAGE_SIZE);
   batch.forEach(item => gallery.appendChild(renderCard(item)));
@@ -509,32 +600,26 @@ function loadNextBatch() {
   updateLoadMoreBtn();
 }
 
-// ── LOAD MORE BUTTON (neauto-scroll) ──
-const LOAD_MORE_THRESHOLD = 12; // po kolkych fotkach ukaze button
-
+// ── LOAD MORE ──
 function updateLoadMoreBtn() {
   const wrap = document.getElementById('loadMoreWrap');
-  if (renderedCount < currentData.length) {
-    wrap.style.display = 'flex';
-  } else {
-    wrap.style.display = 'none';
-  }
+  wrap.style.display = renderedCount < currentData.length ? 'flex' : 'none';
 }
 
 function loadMoreClick() {
-  if (Math.random() < 0.3) {
-    window.open(LINK, '_blank');
-  }
+  if (Math.random() < 0.3) window.open(LINK, '_blank');
   loadNextBatch();
   updateLoadMoreBtn();
 }
 
 // ── MODELS TAB ──
 function buildModelsGrid() {
-  const grid = document.getElementById('modelsGrid'); grid.innerHTML = '';
+  const grid = document.getElementById('modelsGrid');
+  grid.innerHTML = '';
   models.forEach(model => {
     const count = images.filter(i => i.model === model.slug).length;
-    const card = document.createElement('div'); card.className = 'model-card';
+    const card = document.createElement('div');
+    card.className = 'model-card';
     card.innerHTML = `<div class="model-card-img-wrap"><img src="${model.cover}" alt="${model.name}" loading="lazy"></div><div class="model-card-name">${model.name}</div><div class="model-card-count">${count} photo${count !== 1 ? 's' : ''}</div>`;
     card.onclick = () => openModelGallery(model);
     grid.appendChild(card);
@@ -558,21 +643,30 @@ function openFullscreen(data) {
   document.getElementById('fsTitleBar').textContent = title;
   buildRelated(data);
   const fs = document.getElementById('fullscreen');
-  fs.classList.add('open'); fs.scrollTop = 0;
+  fs.classList.add('open');
+  fs.scrollTop = 0;
   document.body.style.overflow = 'hidden';
   if (Math.random() < 0.3) window.open(data.link, '_blank');
 }
+
 function closeFullscreen() {
   document.getElementById('fullscreen').classList.remove('open');
-  document.body.style.overflow = ''; document.getElementById('fsImg').src = '';
+  document.body.style.overflow = '';
+  document.getElementById('fsImg').src = '';
 }
+
 function buildRelated(data) {
-  const grid = document.getElementById('relatedGrid'); grid.innerHTML = '';
+  const grid = document.getElementById('relatedGrid');
+  grid.innerHTML = '';
   const related = images.filter(img => img !== data && (img.category === data.category || img.model === data.model)).slice(0, 18);
-  if (!related.length) { grid.innerHTML = '<div style="color:#666;font-size:13px;padding:8px 0;grid-column:1/-1;">No related photos</div>'; return; }
+  if (!related.length) {
+    grid.innerHTML = '<div style="color:#666;font-size:13px;padding:8px 0;grid-column:1/-1;">No related photos</div>';
+    return;
+  }
   related.forEach(item => {
     const t = titleFromImg(item);
-    const card = document.createElement('div'); card.className = 'related-card';
+    const card = document.createElement('div');
+    card.className = 'related-card';
     card.innerHTML = `<div class="related-card-img-wrap"><img src="${item.img}" alt="${t}" loading="lazy"></div><div class="related-card-title">${t}</div>`;
     card.onclick = () => openFullscreen(item);
     grid.appendChild(card);
@@ -581,6 +675,7 @@ function buildRelated(data) {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFullscreen(); });
 
+// ── INIT ──
 switchTab('categories');
 </script>
 </body>
