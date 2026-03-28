@@ -298,6 +298,8 @@ const models = [
   { slug: "lela_sohna", name: "Lela Sohna", cover: "pictures/models/lela_sohna/cover.png" },
   { slug: "mellooow",  name: "mellooow",  cover: "pictures/models/mellooow/cover.png"  },
   { slug: "micagiammaria",  name: "micagiammaria",  cover: "pictures/models/micagiammaria/cover.png"  },
+  { slug: "okichleo",  name: "okichleo",  cover: "pictures/models/okichleo/cover.png"  },
+  { slug: "gina_savage",  name: "gina_savage",  cover: "pictures/models/gina_savage/cover.png"  },
   // -- sem pridaj dalsie modelky --
 ];
 
@@ -342,10 +344,20 @@ add("micagiammaria", "tits",    1, 11);
 add("micagiammaria", "cosplay", 1,  5);
 add("micagiammaria", "ass",     1, 20);
 
+add("okichleo", "bikiny",  1, 10);
+add("okichleo", "tits",    1, 5);
+add("okichleo", "cosplay", 1,  6);
+add("okichleo", "ass",     1, 5);
+
 add("mellooow", "bikiny",  1, 7);
 add("mellooow", "tits",    1, 14);
 add("mellooow", "cosplay", 1,  3);
 add("mellooow", "ass",     1, 3);
+
+add("gina_savage", "bikiny",  1, 4);
+add("gina_savage", "tits",    1, 15);
+add("gina_savage", "cosplay", 0,  0);
+add("gina_savage", "ass",     1, 31);
 
 // General (bez modelky)
 // addGeneral("bikiny", 1, 10);
@@ -676,7 +688,12 @@ function closeFullscreen() {
 function buildRelated(data) {
   const grid = document.getElementById('relatedGrid');
   grid.innerHTML = '';
-  const related = images.filter(img => img !== data && (img.category === data.category || img.model === data.model)).slice(0, 18);
+ let related = images.filter(img => img !== data && (img.category === data.category || img.model === data.model));
+for (let i = related.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [related[i], related[j]] = [related[j], related[i]];
+}
+related = related.slice(0, 18);
   if (!related.length) {
     grid.innerHTML = '<div style="color:#666;font-size:13px;padding:8px 0;grid-column:1/-1;">No related photos</div>';
     return;
